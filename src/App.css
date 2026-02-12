@@ -1,0 +1,123 @@
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  --app-header-height: 72px;
+  background: #000;
+  color: #f0eff6;
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--app-header-height);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 clamp(14px, 2.5vw, 26px);
+  background: linear-gradient(180deg, rgba(6, 8, 14, 0.95) 0%, rgba(6, 8, 14, 0.75) 100%);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(140, 152, 185, 0.2);
+}
+
+.app-header__title {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.35vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.app-header__tabs {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.55rem;
+}
+
+.app-header__tab {
+  border: 1px solid rgba(145, 156, 187, 0.22);
+  background: rgba(255, 255, 255, 0.03);
+  color: #f0eff6;
+  border-radius: 999px;
+  padding: 0.42rem 0.88rem;
+  font-size: 0.86rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.app-header__tab:hover {
+  border-color: rgba(185, 196, 230, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.app-header__tab.is-active {
+  border-color: rgba(233, 237, 247, 0.85);
+  background: rgba(238, 243, 255, 0.16);
+  color: #fff;
+}
+
+.app-content {
+  position: relative;
+  padding-top: var(--app-header-height);
+}
+
+.app-content.is-network {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding-inline: clamp(12px, 2.2vw, 24px);
+  background: radial-gradient(circle at center, #0a0b18 0%, #020307 64%, #000 100%);
+}
+
+.app-content.is-simplegraph {
+  min-height: calc(100vh - var(--app-header-height));
+  display: grid;
+  place-items: center;
+  padding-inline: clamp(12px, 2.2vw, 24px);
+  background: #000;
+}
+
+.app-content.is-scroll3d {
+  min-height: calc(100vh - var(--app-header-height));
+  background: #000;
+}
+
+.app-content.is-textscatter {
+  min-height: calc(100vh - var(--app-header-height));
+  background: #000;
+}
+
+.app-content.is-textscatter-burst {
+  min-height: calc(100vh - var(--app-header-height));
+  background: #000;
+}
+
+.app-content.is-credit-card {
+  min-height: calc(100vh - var(--app-header-height));
+  display: grid;
+  place-items: center;
+  padding-inline: clamp(12px, 2.2vw, 24px);
+  background: #000;
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    --app-header-height: 112px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.6rem;
+    padding-block: 0.5rem;
+  }
+}
