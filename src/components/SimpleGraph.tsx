@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useMemo, useState, type CSSProperties } from 'react'
 import './SimpleGraph.css'
 
 type SimpleGraphPoint = {
@@ -120,25 +120,7 @@ function SimpleGraph({
   colors,
 }: SimpleGraphProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  const [runId, setRunId] = useState(0)
-  const [pointRevealDelays, setPointRevealDelays] = useState<number[]>([])
-  const corePathRef = useRef<SVGPathElement | null>(null)
   const drawDurationMs = clampDuration(animationDurationMs)
-
-  useEffect(() => {
-    setRunId((prev) => prev + 1)
-  }, [points, animationDurationMs])
-
-  useEffect(() => {
-    if (points.length === 0) {
-      setActiveIndex(null)
-      return
-    }
-
-    if (activeIndex !== null && activeIndex > points.length - 1) {
-      setActiveIndex(null)
-    }
-  }, [activeIndex, points])
 
   const mergedColors = useMemo(
     () => ({
@@ -188,57 +170,6 @@ function SimpleGraph({
     return chartPoints.map((_, index) => Math.round((index / (chartPoints.length - 1)) * drawDurationMs))
   }, [chartPoints, drawDurationMs])
 
-  useLayoutEffect(() => {
-    if (chartPoints.length === 0) {
-      setPointRevealDelays([])
-      return
-    }
-
-    const path = corePathRef.current
-    if (!path) {
-      setPointRevealDelays(fallbackRevealDelays)
-      return
-    }
-
-    try {
-      const totalLength = path.getTotalLength()
-      if (!Number.isFinite(totalLength) || totalLength <= 0) {
-        setPointRevealDelays(fallbackRevealDelays)
-        return
-      }
-
-      const sampleCount = Math.max(360, chartPoints.length * 160)
-      const sampledPoints = Array.from({ length: sampleCount + 1 }, (_, index) => {
-        const ratio = index / sampleCount
-        const sample = path.getPointAtLength(totalLength * ratio)
-        return { x: sample.x, y: sample.y, ratio }
-      })
-
-      const computedDelays = chartPoints.map((point) => {
-        let bestRatio = 0
-        let bestDistanceSquared = Number.POSITIVE_INFINITY
-
-        for (let index = 0; index < sampledPoints.length; index += 1) {
-          const sampled = sampledPoints[index]
-          const dx = sampled.x - point.x
-          const dy = sampled.y - point.y
-          const distanceSquared = dx * dx + dy * dy
-
-          if (distanceSquared < bestDistanceSquared) {
-            bestDistanceSquared = distanceSquared
-            bestRatio = sampled.ratio
-          }
-        }
-
-        return Math.round(bestRatio * drawDurationMs)
-      })
-
-      setPointRevealDelays(computedDelays)
-    } catch {
-      setPointRevealDelays(fallbackRevealDelays)
-    }
-  }, [chartPoints, drawDurationMs, fallbackRevealDelays, linePath, runId])
-
   const areaPath = useMemo(() => {
     if (!showArea || chartPoints.length < 2) {
       return ''
@@ -250,8 +181,16 @@ function SimpleGraph({
     return `${linePath} L ${last.x} ${baseY} L ${first.x} ${baseY} Z`
   }, [chartPoints, linePath, showArea])
 
-  const activePoint = activeIndex !== null ? chartPoints[activeIndex] : null
-  const activeValue = activeIndex !== null ? points[activeIndex] : null
+  const activePointIndex = activeIndex !== null && activeIndex < chartPoints.length ? activeIndex : null
+  const activePoint = activePointIndex !== null ? chartPoints[activePointIndex] : null
+  const activeValue = activePointIndex !== null ? points[activePointIndex] : null
+  const animationSeed = useMemo(
+    () =>
+      `${drawDurationMs}-${points
+        .map((point) => `${point.id}:${point.label}:${point.value}:${point.displayValue ?? ''}`)
+        .join('|')}`,
+    [drawDurationMs, points],
+  )
   const trendText =
     activeValue?.displayValue ??
     `${activeValue && activeValue.value > 0 ? '+' : ''}${activeValue?.value.toFixed(1) ?? '0.0'}%`
@@ -259,15 +198,15 @@ function SimpleGraph({
   const isNegative = (activeValue?.value ?? 0) < 0
   const trendArrow = isNegative ? '↘' : '↗'
   const tooltipRotateZ = useMemo(() => {
-    if (activeIndex === null || chartPoints.length < 2) {
+    if (activePointIndex === null || chartPoints.length < 2) {
       return 0
     }
 
-    const prev = chartPoints[Math.max(activeIndex - 1, 0)]
-    const next = chartPoints[Math.min(activeIndex + 1, chartPoints.length - 1)]
+    const prev = chartPoints[Math.max(activePointIndex - 1, 0)]
+    const next = chartPoints[Math.min(activePointIndex + 1, chartPoints.length - 1)]
     const angle = Math.atan2(next.y - prev.y, next.x - prev.x) * (180 / Math.PI)
     return Math.max(-12, Math.min(12, angle))
-  }, [activeIndex, chartPoints])
+  }, [activePointIndex, chartPoints])
   const tooltipLeftPercent = activePoint ? clamp((activePoint.x / VIEWBOX_WIDTH) * 100, 8, 92) : 50
 
   const cssVars = {
@@ -317,10 +256,9 @@ function SimpleGraph({
 
             {areaPath ? <path className="simple-graph__area" d={areaPath} /> : null}
 
-            <g key={`line-${runId}`} className="simple-graph__line-wrap">
+            <g key={`line-${animationSeed}`} className="simple-graph__line-wrap">
               <path className="simple-graph__line simple-graph__line--glow" d={linePath} pathLength={100} />
               <path
-                ref={corePathRef}
                 className="simple-graph__line simple-graph__line--core"
                 d={linePath}
                 pathLength={100}
@@ -329,12 +267,12 @@ function SimpleGraph({
             </g>
 
             {chartPoints.map((point, index) => {
-              const isActive = index === activeIndex
-              const revealDelayMs = pointRevealDelays[index] ?? fallbackRevealDelays[index] ?? 0
+              const isActive = index === activePointIndex
+              const revealDelayMs = fallbackRevealDelays[index] ?? 0
 
               return (
                 <g
-                  key={`${point.label}-${index}-${runId}`}
+                  key={`${point.label}-${index}-${animationSeed}`}
                   className={`simple-graph__point ${isActive ? 'is-active' : ''}`}
                   style={{ '--sg-point-delay': `${revealDelayMs}ms` } as CSSProperties}
                   onPointerEnter={() => setActiveIndex(index)}
