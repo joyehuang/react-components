@@ -220,6 +220,42 @@ refactor: migrate TextScatter to ui/ directory structure
 Co-Authored-By: Claude (pa/claude-sonnet-4-5-20250929) <noreply@anthropic.com>
 ```
 
+### ⚠️ IMPORTANT: Always Push After Committing
+
+**After every commit, immediately push to remote:**
+
+```bash
+git push
+```
+
+**Why this matters**:
+- Prevents loss of work if local machine has issues
+- Keeps remote repository up to date
+- Allows collaboration and review
+- Ensures CHANGELOG.md entries are backed up
+
+**Recommended workflow**:
+```bash
+# 1. Make changes
+# 2. Test changes (pnpm typecheck, pnpm test)
+# 3. Stage and commit
+git add .
+git commit -m "type: description
+
+Co-Authored-By: Claude (pa/claude-sonnet-4-5-20250929) <noreply@anthropic.com>"
+
+# 4. IMMEDIATELY PUSH
+git push
+
+# 5. Update CHANGELOG.md
+# 6. Commit changelog update
+git add CHANGELOG.md
+git commit -m "docs: update changelog for <task-name>"
+git push
+```
+
+**Never leave unpushed commits** - Always end your work session with `git push`.
+
 ## Known Issues & Planned Improvements
 
 See `CHANGELOG.md` for ongoing refactoring work.

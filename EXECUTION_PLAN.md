@@ -55,6 +55,7 @@ packages/ui/src/components/ui/
 8. Delete old file locations
 9. Run `pnpm typecheck` to catch import errors
 10. Commit: `refactor: migrate all components to unified directory structure`
+11. **Push immediately**: `git push`
 
 **Success Criteria**:
 - ✅ All components in `ui/<component-name>/` directories
@@ -109,6 +110,7 @@ packages/ui/src/components/ui/
 6. Create token showcase page in docs
 7. Document token system in README
 8. Commit: `feat: add global design token system`
+9. **Push immediately**: `git push`
 
 **Success Criteria**:
 - ✅ `tokens.css` created and imported
@@ -191,6 +193,7 @@ packages/ui/src/components/ui/
 4. Add CSS for code block styling
 5. Test with multiple components
 6. Commit: `feat(docs): add syntax highlighting with Shiki`
+7. **Push immediately**: `git push`
 
 **Success Criteria**:
 - ✅ All code blocks have syntax colors
@@ -245,6 +248,7 @@ packages/ui/src/components/ui/
 4. Update `ComponentPreview.tsx` to handle variants
 5. Add examples to manifest for all components
 6. Commit: `feat(docs): add multi-example support with tabs`
+7. **Push immediately**: `git push`
 
 **Success Criteria**:
 - ✅ Multiple examples render in tabs
@@ -316,6 +320,7 @@ describe('ComponentName', () => {
 5. Test with complex component (Animated Card)
 6. Document usage in README
 7. Commit: `feat: add component-builder skill for automated component creation`
+8. **Push immediately**: `git push`
 
 **Success Criteria**:
 - ✅ Skill can generate components from screenshots
@@ -344,6 +349,7 @@ describe('ComponentName', () => {
 6. Test on all existing components
 7. Generate baseline quality report
 8. Commit: `feat: add component-checker skill for quality validation`
+9. **Push immediately**: `git push`
 
 **Success Criteria**:
 - ✅ Can check file structure automatically
@@ -369,6 +375,7 @@ describe('ComponentName', () => {
 4. Test with new component
 5. Verify all changes work
 6. Commit: `feat: add doc-integrator skill for automated documentation`
+7. **Push immediately**: `git push`
 
 **Success Criteria**:
 - ✅ Can update manifest automatically
@@ -442,7 +449,10 @@ Navigate to /docs/components/particles-background
 ## Risk Mitigation
 
 **Risk**: Breaking existing code during refactoring
-- **Mitigation**: Commit after each small change, test thoroughly
+- **Mitigation**: Commit after each small change, push immediately, test thoroughly
+
+**Risk**: Losing work due to unpushed commits
+- **Mitigation**: Always push immediately after every commit
 
 **Risk**: Skills don't work as expected
 - **Mitigation**: Build incrementally, test on simple cases first
@@ -457,7 +467,8 @@ Navigate to /docs/components/particles-background
 1. **Read**: COMPONENT_SPEC.md, CLAUDE.md, CHANGELOG.md
 2. **Start**: Task 1 - Unify Component Directory Structure
 3. **Commit**: After each subtask
-4. **Document**: Update CHANGELOG.md with progress
-5. **Test**: Verify each change doesn't break existing functionality
+4. **Push**: Immediately after every commit (⚠️ NEVER skip this!)
+5. **Document**: Update CHANGELOG.md with progress
+6. **Test**: Verify each change doesn't break existing functionality
 
 **Let's build! 🚀**

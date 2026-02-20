@@ -52,7 +52,8 @@ pnpm components list   # List components
 1. Update CHANGELOG.md with what you did
 2. Run relevant tests (`pnpm typecheck`, `pnpm test`)
 3. Commit with proper message format
-4. Update task status to "completed"
+4. **⚠️ PUSH IMMEDIATELY** (`git push`)
+5. Update task status to "completed"
 
 ### 🔄 Workflow for Each Task
 
@@ -76,7 +77,10 @@ Detailed explanation if needed.
 
 Co-Authored-By: Claude (pa/claude-sonnet-4-5-20250929) <noreply@anthropic.com>"
 
-# 5. Mark complete
+# 5. PUSH IMMEDIATELY (IMPORTANT!)
+git push
+
+# 6. Mark complete
 /tasks update <task-id> --status completed
 ```
 
@@ -99,6 +103,7 @@ Co-Authored-By: Claude (pa/claude-sonnet-4-5-20250929) <noreply@anthropic.com>"
 - Work on tasks that are blocked by others
 - Forget to update CHANGELOG.md
 - Commit without testing
+- **Commit without pushing immediately after**
 - Change multiple things in one commit
 - Skip the Co-Authored-By line
 
@@ -106,6 +111,7 @@ Co-Authored-By: Claude (pa/claude-sonnet-4-5-20250929) <noreply@anthropic.com>"
 - Read all docs first
 - Follow task order
 - Commit frequently
+- **Push immediately after every commit**
 - Test before committing
 - Update CHANGELOG.md
 - Reference existing quality components (CreditCard)
