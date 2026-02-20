@@ -1,20 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700;800&display=swap');
 
 :root {
+  --color-mist-50: oklch(98.7% 0.002 197.1);
+  --color-mist-100: oklch(96.3% 0.002 197.1);
+  --color-mist-200: oklch(92.5% 0.005 214.3);
+  --color-mist-300: oklch(87.2% 0.007 219.6);
+  --color-mist-400: oklch(72.3% 0.014 214.4);
+  --color-mist-500: oklch(56% 0.021 213.5);
+  --color-mist-600: oklch(45% 0.017 213.2);
+  --color-mist-700: oklch(37.8% 0.015 216);
+  --color-mist-800: oklch(27.5% 0.011 216.9);
+  --color-mist-900: oklch(21.8% 0.008 223.9);
+  --color-mist-950: oklch(14.8% 0.004 228.8);
+
   --font-sans: 'IBM Plex Sans', 'Noto Sans SC', 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
   --app-header-height: 64px;
-  --canvas: #f4f7fc;
-  --canvas-soft: #eef2fa;
+  --canvas: var(--color-mist-50);
+  --canvas-soft: var(--color-mist-100);
   --panel: #ffffff;
-  --panel-border: rgba(74, 95, 139, 0.2);
-  --ink-strong: #17253f;
-  --ink: #2b3b5a;
-  --ink-muted: #60708d;
-  --accent: #2049df;
-  --accent-strong: #1939b1;
-  --accent-soft: rgba(32, 73, 223, 0.12);
-  --focus-ring: rgba(29, 96, 224, 0.45);
+  --panel-border: color-mix(in oklch, var(--color-mist-500) 30%, transparent);
+  --ink-strong: var(--color-mist-900);
+  --ink: var(--color-mist-800);
+  --ink-muted: var(--color-mist-600);
+  --accent: var(--color-mist-700);
+  --accent-strong: var(--color-mist-800);
+  --accent-soft: color-mix(in oklch, var(--color-mist-600) 16%, transparent);
+  --focus-ring: color-mix(in oklch, var(--color-mist-500) 52%, transparent);
   font-family: var(--font-sans);
   font-weight: 400;
   color: var(--ink);
@@ -41,8 +53,8 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(circle at 8% 10%, rgba(132, 163, 255, 0.24) 0%, rgba(132, 163, 255, 0) 36%),
-    radial-gradient(circle at 88% 18%, rgba(92, 127, 230, 0.16) 0%, rgba(92, 127, 230, 0) 35%),
+    radial-gradient(circle at 8% 10%, color-mix(in oklch, var(--color-mist-400) 36%, transparent) 0%, transparent 36%),
+    radial-gradient(circle at 88% 18%, color-mix(in oklch, var(--color-mist-500) 24%, transparent) 0%, transparent 35%),
     linear-gradient(180deg, var(--canvas) 0%, var(--canvas-soft) 100%);
 }
 

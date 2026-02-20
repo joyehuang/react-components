@@ -3,12 +3,27 @@
 @import 'fumadocs-ui/css/preset.css';
 
 :root {
-  --color-brand-1: #1d4ed8;
-  --color-brand-2: #0f766e;
+  --color-mist-50: oklch(98.7% 0.002 197.1);
+  --color-mist-100: oklch(96.3% 0.002 197.1);
+  --color-mist-200: oklch(92.5% 0.005 214.3);
+  --color-mist-300: oklch(87.2% 0.007 219.6);
+  --color-mist-400: oklch(72.3% 0.014 214.4);
+  --color-mist-500: oklch(56% 0.021 213.5);
+  --color-mist-600: oklch(45% 0.017 213.2);
+  --color-mist-700: oklch(37.8% 0.015 216);
+  --color-mist-800: oklch(27.5% 0.011 216.9);
+  --color-mist-900: oklch(21.8% 0.008 223.9);
+  --color-mist-950: oklch(14.8% 0.004 228.8);
+
+  --color-brand-1: var(--color-mist-700);
+  --color-brand-2: var(--color-mist-500);
 }
 
 body {
   font-family: var(--font-sans), 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at 8% 10%, color-mix(in oklch, var(--color-mist-300) 24%, transparent) 0%, transparent 38%),
+    radial-gradient(circle at 88% 18%, color-mix(in oklch, var(--color-mist-400) 16%, transparent) 0%, transparent 36%);
 }
 
 .component-preview-frame {
