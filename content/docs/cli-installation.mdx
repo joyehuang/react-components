@@ -1,0 +1,28 @@
+---
+title: CLI 安装
+description: 使用命令行把组件快速安装到你的项目。
+---
+
+# CLI 安装
+
+## 查看可用组件
+
+```bash
+pnpm components list
+```
+
+## 安装单个组件
+
+```bash
+pnpm components add credit-card --cwd <你的项目路径>
+```
+
+## 检查依赖是否完整
+
+```bash
+pnpm components doctor --cwd <你的项目路径>
+```
+
+## 说明
+
+当前 CLI 以本仓库为源执行安装流程，适合你在本地开发/集成组件。

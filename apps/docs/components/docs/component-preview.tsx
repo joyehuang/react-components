@@ -15,7 +15,7 @@ type ComponentPreviewProps = {
 
 function Placeholder({ label }: { label: string }) {
   return (
-    <div className="flex min-h-52 items-center justify-center rounded-xl border border-dashed border-fd-border bg-fd-muted p-6 text-sm text-fd-muted-foreground">
+    <div className="flex min-h-52 items-center justify-center rounded-xl border border-dashed border-fd-border bg-fd-muted/70 p-6 text-sm text-fd-muted-foreground">
       {label}
     </div>
   )
@@ -25,7 +25,7 @@ export function ComponentPreview({ slug }: ComponentPreviewProps) {
   if (slug === 'credit-card') {
     return (
       <div className="mx-auto max-w-[540px]">
-        <CreditCard width={500} maxTilt={14} />
+        <CreditCard width={460} maxTilt={14} />
       </div>
     )
   }
@@ -58,13 +58,7 @@ export function ComponentPreview({ slug }: ComponentPreviewProps) {
 
   if (slug === 'text-scatter-burst') {
     return (
-      <TextScatterBurst
-        text="Bounce Back."
-        minHeight={300}
-        maxWidth={760}
-        triggerRadius={84}
-        scatterHoldMs={1200}
-      />
+      <TextScatterBurst text="Bounce Back." minHeight={300} maxWidth={760} triggerRadius={84} scatterHoldMs={1200} />
     )
   }
 
@@ -81,5 +75,5 @@ export function ComponentPreview({ slug }: ComponentPreviewProps) {
     )
   }
 
-  return <Placeholder label="Preview unavailable for this component." />
+  return <Placeholder label="This component does not have a live preview configured yet." />
 }

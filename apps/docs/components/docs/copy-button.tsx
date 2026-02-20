@@ -19,7 +19,8 @@ export function CopyButton({ value }: CopyButtonProps) {
     <button
       type="button"
       onClick={handleCopy}
-      className="copy-button absolute right-3 top-3 rounded-md px-2 py-1 text-xs font-medium transition hover:opacity-90"
+      className="copy-button absolute right-3 top-3"
+      aria-label={copied ? 'Copied' : 'Copy code'}
     >
       {copied ? 'Copied' : 'Copy'}
     </button>

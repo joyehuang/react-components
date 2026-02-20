@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(dir \"C:\\\\development\\\\react-components\\\\packages\\\\ui\\\\src\\\\components\" /s /b)"
+    ]
+  }
+}

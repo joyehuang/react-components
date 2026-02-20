@@ -1,10 +1,17 @@
-import { notFound } from 'next/navigation'
-import { componentManifest, getComponentBySlug } from '@/lib/manifest'
-import { CopyButton } from '@/components/docs/copy-button'
 import { ComponentPreview } from '@/components/docs/component-preview'
+import { CopyButton } from '@/components/docs/copy-button'
+import { componentManifest, getComponentBySlug } from '@/lib/manifest'
+import { notFound } from 'next/navigation'
 
 type ComponentDetailProps = {
   params: Promise<{ slug: string }>
+}
+
+function getStatusLabel(status: string) {
+  if (status === 'stable') return 'Stable'
+  if (status === 'beta') return 'Beta'
+  if (status === 'draft') return 'Draft'
+  return status
 }
 
 export default async function ComponentDetailPage(props: ComponentDetailProps) {
@@ -15,54 +22,77 @@ export default async function ComponentDetailPage(props: ComponentDetailProps) {
     notFound()
   }
 
+  const cliInstallCommand = `pnpm components add ${component.slug} --cwd <project-path>`
+
   return (
     <article className="space-y-8">
-      <header className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.18em] text-fd-muted-foreground">{component.category}</p>
-        <h1 className="text-3xl font-semibold tracking-tight">{component.name}</h1>
-        <p className="max-w-3xl text-sm text-fd-muted-foreground">{component.summary}</p>
-        <div className="flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full border border-fd-border px-2 py-1 uppercase">{component.status}</span>
+      <header className="editorial-panel rounded-2xl p-6 md:p-7">
+        <p className="editorial-kicker">{component.category}</p>
+        <h1 className="editorial-display mt-4 text-4xl leading-tight text-fd-foreground md:text-5xl">{component.name}</h1>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-fd-muted-foreground md:text-base">{component.summary}</p>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          <span className="component-badge">{getStatusLabel(component.status)}</span>
           {component.tags.map((tag) => (
-            <span key={tag} className="rounded-md bg-fd-secondary px-2 py-1 text-fd-muted-foreground">
+            <span key={tag} className="component-tag">
               {tag}
             </span>
           ))}
         </div>
       </header>
 
-      <section className="component-preview-frame rounded-xl p-4 md:p-6">
-        <ComponentPreview slug={component.slug} />
+      <section className="component-section space-y-4">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="editorial-display text-3xl text-fd-foreground">Live Preview</h2>
+          <p className="text-xs uppercase tracking-[0.12em] text-fd-muted-foreground">Interactive</p>
+        </div>
+        <div className="component-preview-frame p-4 md:p-6">
+          <ComponentPreview slug={component.slug} />
+        </div>
       </section>
 
-      <section className="space-y-4 rounded-xl border border-fd-border bg-fd-card p-4 md:p-6">
-        <h2 className="text-xl font-semibold">Install / Copy</h2>
-        <ul className="list-disc space-y-1 pl-4 text-sm text-fd-muted-foreground">
-          {component.files.map((file) => (
-            <li key={file}>
-              <code>{file}</code>
-            </li>
-          ))}
-        </ul>
+      <section className="component-section space-y-5">
+        <h2 className="editorial-display text-3xl text-fd-foreground">Installation</h2>
+        <p className="text-sm leading-7 text-fd-muted-foreground">
+          Use CLI for the fastest setup, then copy import and example snippets directly into your project.
+        </p>
+
+        <div className="code-block-shell">
+          <CopyButton value={cliInstallCommand} />
+          <pre className="component-code">
+            <code>{cliInstallCommand}</code>
+          </pre>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-[0.08em] text-fd-muted-foreground">Files</h3>
+          <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-fd-muted-foreground">
+            {component.files.map((file) => (
+              <li key={file}>
+                <code>{file}</code>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="code-block-shell">
           <CopyButton value={component.importStatement} />
-          <pre className="overflow-x-auto rounded-lg border border-fd-border bg-fd-secondary px-4 py-4 text-sm">
+          <pre className="component-code">
             <code>{component.importStatement}</code>
           </pre>
         </div>
 
         <div className="code-block-shell">
           <CopyButton value={component.exampleCode} />
-          <pre className="overflow-x-auto rounded-lg border border-fd-border bg-fd-secondary px-4 py-4 text-sm">
+          <pre className="component-code">
             <code>{component.exampleCode}</code>
           </pre>
         </div>
 
         {component.dependencies.length > 0 ? (
           <div>
-            <h3 className="mb-2 text-sm font-semibold">Dependencies</h3>
-            <ul className="list-disc space-y-1 pl-4 text-sm text-fd-muted-foreground">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.08em] text-fd-muted-foreground">Dependencies</h3>
+            <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-fd-muted-foreground">
               {component.dependencies.map((dependency) => (
                 <li key={dependency.name}>
                   <code>
@@ -76,34 +106,34 @@ export default async function ComponentDetailPage(props: ComponentDetailProps) {
         ) : null}
       </section>
 
-      <section className="space-y-4 rounded-xl border border-fd-border bg-fd-card p-4 md:p-6">
-        <h2 className="text-xl font-semibold">Props</h2>
+      <section className="component-section space-y-4">
+        <h2 className="editorial-display text-3xl text-fd-foreground">Props API</h2>
         {component.props.length === 0 ? (
-          <p className="text-sm text-fd-muted-foreground">No public props.</p>
+          <p className="text-sm text-fd-muted-foreground">No configurable props are currently exposed for this component.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full border-collapse text-sm">
+          <div className="overflow-x-auto rounded-xl border border-fd-border">
+            <table className="component-table min-w-full text-sm">
               <thead>
-                <tr className="border-b border-fd-border text-left">
-                  <th className="py-2 pr-4">Name</th>
-                  <th className="py-2 pr-4">Type</th>
-                  <th className="py-2 pr-4">Default</th>
-                  <th className="py-2">Description</th>
+                <tr className="text-left">
+                  <th className="px-3 py-3">Name</th>
+                  <th className="px-3 py-3">Type</th>
+                  <th className="px-3 py-3">Default</th>
+                  <th className="px-3 py-3">Description</th>
                 </tr>
               </thead>
               <tbody>
                 {component.props.map((prop) => (
-                  <tr key={prop.name} className="border-b border-fd-border/60 align-top">
-                    <td className="py-2 pr-4">
+                  <tr key={prop.name} className="align-top">
+                    <td className="px-3 py-3">
                       <code>{prop.name}</code>
                     </td>
-                    <td className="py-2 pr-4">
+                    <td className="px-3 py-3">
                       <code>{prop.type}</code>
                     </td>
-                    <td className="py-2 pr-4">
+                    <td className="px-3 py-3">
                       <code>{prop.defaultValue ?? 'n/a'}</code>
                     </td>
-                    <td className="py-2 text-fd-muted-foreground">{prop.description}</td>
+                    <td className="px-3 py-3 text-fd-muted-foreground">{prop.description}</td>
                   </tr>
                 ))}
               </tbody>

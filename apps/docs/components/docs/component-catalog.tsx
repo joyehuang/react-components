@@ -1,14 +1,21 @@
 'use client'
 
+import type { ComponentManifest } from '@rc-lab/registry'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
-import type { ComponentManifest } from '@rc-lab/registry'
 
 type ComponentCatalogProps = {
   components: ComponentManifest[]
 }
 
 type StatusFilter = 'all' | 'stable' | 'beta' | 'draft'
+
+function getStatusLabel(status: StatusFilter | ComponentManifest['status']) {
+  if (status === 'stable') return 'Stable'
+  if (status === 'beta') return 'Beta'
+  if (status === 'draft') return 'Draft'
+  return 'All'
+}
 
 export function ComponentCatalog({ components }: ComponentCatalogProps) {
   const [query, setQuery] = useState('')
@@ -31,61 +38,72 @@ export function ComponentCatalog({ components }: ComponentCatalogProps) {
 
       const matchesStatus = status === 'all' || component.status === status
       const matchesCategory = category === 'all' || component.category === category
+
       return matchesQuery && matchesStatus && matchesCategory
     })
   }, [category, components, query, status])
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-3 md:grid-cols-[2fr_1fr_1fr]">
-        <input
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search components, tags, or summary..."
-          className="rounded-lg border border-fd-border bg-fd-background px-3 py-2 text-sm outline-none ring-offset-2 focus-visible:ring-2"
-        />
-        <select
-          value={status}
-          onChange={(event) => setStatus(event.target.value as StatusFilter)}
-          className="rounded-lg border border-fd-border bg-fd-background px-3 py-2 text-sm outline-none ring-offset-2 focus-visible:ring-2"
-        >
-          <option value="all">All Status</option>
-          <option value="stable">Stable</option>
-          <option value="beta">Beta</option>
-          <option value="draft">Draft</option>
-        </select>
-        <select
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-          className="rounded-lg border border-fd-border bg-fd-background px-3 py-2 text-sm outline-none ring-offset-2 focus-visible:ring-2"
-        >
-          {categories.map((item) => (
-            <option key={item} value={item}>
-              {item === 'all' ? 'All Categories' : item}
-            </option>
-          ))}
-        </select>
-      </div>
+      <section className="component-section space-y-4">
+        <div className="catalog-controls">
+          <label className="catalog-field">
+            <span>Search</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search name, tag, or summary..."
+              className="catalog-input"
+            />
+          </label>
 
-      <p className="text-sm text-fd-muted-foreground">{filtered.length} components</p>
+          <label className="catalog-field">
+            <span>Status</span>
+            <select
+              value={status}
+              onChange={(event) => setStatus(event.target.value as StatusFilter)}
+              className="catalog-select"
+            >
+              <option value="all">All statuses</option>
+              <option value="stable">Stable</option>
+              <option value="beta">Beta</option>
+              <option value="draft">Draft</option>
+            </select>
+          </label>
 
-      <div className="grid gap-4 md:grid-cols-2">
+          <label className="catalog-field">
+            <span>Category</span>
+            <select value={category} onChange={(event) => setCategory(event.target.value)} className="catalog-select">
+              {categories.map((item) => (
+                <option key={item} value={item}>
+                  {item === 'all' ? 'All categories' : item}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <p className="text-sm text-fd-muted-foreground">
+          Showing <span className="font-semibold text-fd-foreground">{filtered.length}</span> of {components.length}{' '}
+          components
+        </p>
+      </section>
+
+      <div className="grid gap-4 lg:grid-cols-2">
         {filtered.map((component) => (
-          <Link
-            key={component.slug}
-            href={`/docs/components/${component.slug}`}
-            className="rounded-xl border border-fd-border bg-fd-card p-4 transition hover:-translate-y-[1px] hover:border-fd-primary/50"
-          >
-            <div className="mb-3 flex items-center gap-2 text-xs">
-              <span className="rounded-full border border-fd-border px-2 py-0.5 uppercase">{component.status}</span>
+          <Link key={component.slug} href={`/docs/components/${component.slug}`} className="catalog-card group">
+            <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
+              <span className="component-badge">{getStatusLabel(component.status)}</span>
               <span className="text-fd-muted-foreground">{component.category}</span>
             </div>
-            <h3 className="text-base font-semibold">{component.name}</h3>
-            <p className="mt-2 text-sm text-fd-muted-foreground">{component.summary}</p>
-            <div className="mt-3 flex flex-wrap gap-2">
+
+            <h3 className="text-xl font-semibold tracking-tight text-fd-foreground">{component.name}</h3>
+            <p className="mt-2 text-sm leading-7 text-fd-muted-foreground">{component.summary}</p>
+
+            <div className="mt-4 flex flex-wrap gap-2">
               {component.tags.map((tag) => (
-                <span key={tag} className="rounded-md bg-fd-secondary px-2 py-1 text-xs text-fd-muted-foreground">
+                <span key={tag} className="component-tag">
                   {tag}
                 </span>
               ))}

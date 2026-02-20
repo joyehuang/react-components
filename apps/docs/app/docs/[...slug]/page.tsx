@@ -16,7 +16,7 @@ export default async function Page(props: DocsPageProps) {
   const MDX = page.data.body
 
   return (
-    <DocsPage>
+    <DocsPage className="editorial-docs-page">
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>

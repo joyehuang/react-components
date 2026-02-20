@@ -1,16 +1,20 @@
-import { componentManifest } from '@/lib/manifest'
 import { ComponentCatalog } from '@/components/docs/component-catalog'
+import { componentManifest } from '@/lib/manifest'
 
 export default function ComponentsPage() {
   return (
-    <article className="space-y-6">
-      <header className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.18em] text-fd-muted-foreground">Library</p>
-        <h1 className="text-3xl font-semibold tracking-tight">Components</h1>
-        <p className="max-w-2xl text-sm text-fd-muted-foreground">
-          Manifest-driven component catalog with searchable metadata, installation instructions, and quality status.
+    <article className="space-y-7">
+      <header className="editorial-panel rounded-2xl p-6 md:p-7">
+        <p className="editorial-kicker">Library Index</p>
+        <h1 className="editorial-display mt-4 text-4xl leading-tight text-fd-foreground md:text-5xl">
+          Component Directory
+        </h1>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-fd-muted-foreground md:text-base">
+          Discover reusable UI modules with preview, API surface, and installation commands. Filter by status and
+          category to find production-ready components faster.
         </p>
       </header>
+
       <ComponentCatalog components={componentManifest} />
     </article>
   )

@@ -3,41 +3,393 @@
 @import 'fumadocs-ui/css/preset.css';
 
 :root {
-  --color-mauve-50: oklch(98.5% 0 0);
-  --color-mauve-100: oklch(96% 0.003 325.6);
-  --color-mauve-200: oklch(92.2% 0.005 325.62);
-  --color-mauve-300: oklch(86.5% 0.012 325.68);
-  --color-mauve-400: oklch(71.1% 0.019 323.02);
-  --color-mauve-500: oklch(54.2% 0.034 322.5);
-  --color-mauve-600: oklch(43.5% 0.029 321.78);
-  --color-mauve-700: oklch(36.4% 0.029 323.89);
-  --color-mauve-800: oklch(26.3% 0.024 320.12);
-  --color-mauve-900: oklch(21.2% 0.019 322.12);
-  --color-mauve-950: oklch(14.5% 0.008 326);
+  /* Tailwind color references: slate + amber + sky */
+  --tw-slate-50: #f8fafc;
+  --tw-slate-100: #f1f5f9;
+  --tw-slate-200: #e2e8f0;
+  --tw-slate-300: #cbd5e1;
+  --tw-slate-500: #64748b;
+  --tw-slate-600: #475569;
+  --tw-slate-700: #334155;
+  --tw-slate-800: #1e293b;
+  --tw-slate-900: #0f172a;
+  --tw-slate-950: #020617;
+  --tw-amber-50: #fffbeb;
+  --tw-amber-100: #fef3c7;
+  --tw-amber-200: #fde68a;
+  --tw-amber-400: #fbbf24;
+  --tw-amber-500: #f59e0b;
+  --tw-amber-600: #d97706;
+  --tw-amber-700: #b45309;
+  --tw-sky-200: #bae6fd;
+  --tw-sky-400: #38bdf8;
+  --tw-sky-500: #0ea5e9;
 
-  --color-brand-1: var(--color-mauve-700);
-  --color-brand-2: var(--color-mauve-500);
+  --color-brand-strong: var(--tw-amber-600);
+  --color-brand-soft: var(--tw-amber-500);
+  --color-brand-muted: color-mix(in srgb, var(--tw-amber-200) 54%, white);
+
+  --color-fd-background: var(--tw-slate-50);
+  --color-fd-foreground: var(--tw-slate-900);
+  --color-fd-muted: var(--tw-slate-100);
+  --color-fd-muted-foreground: var(--tw-slate-600);
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: var(--tw-slate-900);
+  --color-fd-card: #ffffff;
+  --color-fd-card-foreground: var(--tw-slate-900);
+  --color-fd-border: color-mix(in srgb, var(--tw-slate-300) 80%, transparent);
+  --color-fd-primary: var(--tw-slate-800);
+  --color-fd-primary-foreground: var(--tw-slate-50);
+  --color-fd-secondary: color-mix(in srgb, var(--tw-slate-100) 92%, white);
+  --color-fd-secondary-foreground: var(--tw-slate-700);
+  --color-fd-accent: color-mix(in srgb, var(--tw-amber-200) 42%, transparent);
+  --color-fd-accent-foreground: var(--tw-amber-700);
+  --color-fd-ring: var(--tw-sky-500);
+}
+
+.dark {
+  --color-brand-strong: var(--tw-amber-400);
+  --color-brand-soft: var(--tw-amber-500);
+  --color-brand-muted: color-mix(in srgb, var(--tw-amber-700) 22%, transparent);
+
+  --color-fd-background: #0b1120;
+  --color-fd-foreground: #e2e8f0;
+  --color-fd-muted: #111827;
+  --color-fd-muted-foreground: #94a3b8;
+  --color-fd-popover: #0f172a;
+  --color-fd-popover-foreground: #e2e8f0;
+  --color-fd-card: #0f172a;
+  --color-fd-card-foreground: #e2e8f0;
+  --color-fd-border: color-mix(in srgb, #334155 60%, transparent);
+  --color-fd-primary: #e2e8f0;
+  --color-fd-primary-foreground: #0f172a;
+  --color-fd-secondary: #111827;
+  --color-fd-secondary-foreground: #cbd5e1;
+  --color-fd-accent: color-mix(in srgb, var(--tw-amber-500) 24%, transparent);
+  --color-fd-accent-foreground: #fde68a;
+  --color-fd-ring: var(--tw-sky-400);
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
   font-family: var(--font-sans), 'Segoe UI', sans-serif;
+  color: var(--color-fd-foreground);
+  text-rendering: optimizeLegibility;
   background:
-    radial-gradient(circle at 8% 10%, color-mix(in oklch, var(--color-mauve-300) 24%, transparent) 0%, transparent 38%),
-    radial-gradient(circle at 88% 18%, color-mix(in oklch, var(--color-mauve-400) 16%, transparent) 0%, transparent 36%);
+    linear-gradient(180deg, color-mix(in srgb, var(--tw-amber-50) 65%, transparent), transparent 28%),
+    radial-gradient(circle at 7% 9%, color-mix(in srgb, var(--color-brand-soft) 16%, transparent), transparent 41%),
+    radial-gradient(circle at 92% 15%, color-mix(in srgb, var(--tw-sky-200) 28%, transparent), transparent 43%),
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--tw-slate-300) 18%, transparent) 0 1px,
+      transparent 1px 90px
+    ),
+    var(--color-fd-background);
+}
+
+.dark body {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, #1e293b 42%, transparent), transparent 30%),
+    radial-gradient(circle at 12% 6%, color-mix(in srgb, var(--color-brand-soft) 18%, transparent), transparent 40%),
+    radial-gradient(circle at 90% 12%, color-mix(in srgb, var(--tw-sky-500) 16%, transparent), transparent 38%),
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, #1e293b 26%, transparent) 0 1px,
+      transparent 1px 90px
+    ),
+    var(--color-fd-background);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-brand-soft) 30%, transparent);
+}
+
+:where(h1, h2, h3, h4, .editorial-display) {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+:where(a) {
+  text-decoration-color: color-mix(in srgb, var(--color-brand-strong) 38%, transparent);
+}
+
+:where(a:hover) {
+  color: color-mix(in srgb, var(--color-brand-strong) 88%, var(--color-fd-foreground));
+}
+
+:where(button, input, select, textarea):focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-fd-ring) 72%, white);
+  outline-offset: 2px;
+}
+
+#nd-subnav {
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--color-fd-card) 88%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-fd-border) 88%, transparent);
+}
+
+#nd-sidebar {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-brand-muted) 42%, transparent), transparent 56%),
+    color-mix(in srgb, var(--color-fd-card) 94%, transparent);
+  border-inline-end: 1px solid color-mix(in srgb, var(--color-fd-border) 85%, transparent);
+}
+
+#nd-sidebar a[aria-current='page'],
+#nd-sidebar a[data-active='true'],
+#nd-sidebar [data-active='true'] > a {
+  background: color-mix(in srgb, var(--color-brand-strong) 14%, var(--color-fd-card));
+  border: 1px solid color-mix(in srgb, var(--color-brand-strong) 24%, transparent);
+  border-radius: 10px;
+  color: var(--color-fd-foreground);
+}
+
+#nd-toc {
+  border-inline-start: 1px solid color-mix(in srgb, var(--color-fd-border) 75%, transparent);
+}
+
+.editorial-shell {
+  position: relative;
+}
+
+.editorial-panel {
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 82%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--color-brand-muted) 45%, transparent), transparent 52%),
+    var(--color-fd-card);
+  box-shadow:
+    0 16px 40px -36px color-mix(in srgb, var(--tw-slate-900) 55%, transparent),
+    0 1px 0 color-mix(in srgb, white 75%, transparent) inset;
+}
+
+.editorial-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--color-brand-strong) 28%, transparent);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-brand-strong) 88%, var(--color-fd-foreground));
+  background: color-mix(in srgb, var(--color-brand-soft) 10%, transparent);
+}
+
+.editorial-stat {
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 78%, transparent);
+  border-radius: 0.95rem;
+  padding: 0.95rem 1rem;
+  background: color-mix(in srgb, var(--color-fd-card) 96%, transparent);
+}
+
+.editorial-button-primary {
+  border-radius: 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--color-brand-strong) 36%, transparent);
+  background: color-mix(in srgb, var(--color-brand-strong) 84%, var(--color-fd-primary));
+  color: #fff;
+  padding: 0.62rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.editorial-button-primary:hover {
+  filter: brightness(1.03);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -16px color-mix(in srgb, var(--color-brand-strong) 70%, transparent);
+}
+
+.editorial-button-secondary {
+  border-radius: 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 86%, transparent);
+  background: color-mix(in srgb, var(--color-fd-card) 95%, transparent);
+  color: var(--color-fd-foreground);
+  padding: 0.62rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.editorial-button-secondary:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--color-brand-strong) 32%, var(--color-fd-border));
+  background: color-mix(in srgb, var(--color-brand-soft) 9%, var(--color-fd-card));
+}
+
+.catalog-controls {
+  display: grid;
+  gap: 0.8rem;
+}
+
+@media (min-width: 900px) {
+  .catalog-controls {
+    grid-template-columns: 1.6fr 1fr 1fr;
+  }
+}
+
+.catalog-field {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-fd-muted-foreground);
+}
+
+.catalog-input,
+.catalog-select {
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 90%, transparent);
+  border-radius: 0.72rem;
+  background: color-mix(in srgb, var(--color-fd-card) 96%, transparent);
+  color: var(--color-fd-foreground);
+  font-size: 0.9rem;
+  padding: 0.62rem 0.78rem;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.catalog-input:focus,
+.catalog-select:focus {
+  border-color: color-mix(in srgb, var(--color-brand-strong) 42%, var(--color-fd-border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-soft) 18%, transparent);
+}
+
+.catalog-card {
+  display: block;
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 84%, transparent);
+  border-radius: 1rem;
+  padding: 1rem;
+  background:
+    linear-gradient(170deg, color-mix(in srgb, var(--color-brand-muted) 34%, transparent), transparent 50%),
+    var(--color-fd-card);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.catalog-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--color-brand-strong) 35%, var(--color-fd-border));
+  box-shadow: 0 16px 32px -26px color-mix(in srgb, var(--tw-slate-900) 60%, transparent);
+}
+
+.component-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 88%, transparent);
+  border-radius: 999px;
+  padding: 0.2rem 0.62rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-fd-muted-foreground);
+  background: color-mix(in srgb, var(--color-fd-muted) 68%, transparent);
+}
+
+.component-tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-brand-strong) 22%, transparent);
+  border-radius: 0.56rem;
+  padding: 0.2rem 0.52rem;
+  font-size: 0.72rem;
+  color: color-mix(in srgb, var(--color-brand-strong) 82%, var(--color-fd-foreground));
+  background: color-mix(in srgb, var(--color-brand-soft) 10%, transparent);
+}
+
+.component-section {
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 82%, transparent);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--color-fd-card) 95%, transparent);
 }
 
 .component-preview-frame {
-  border: 1px solid color-mix(in srgb, var(--color-fd-border) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 86%, transparent);
+  border-radius: 1rem;
   background:
-    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--color-brand-1) 16%, transparent), transparent 42%),
-    radial-gradient(circle at 88% 92%, color-mix(in srgb, var(--color-brand-2) 16%, transparent), transparent 40%),
-    var(--color-fd-secondary);
+    radial-gradient(circle at 15% 12%, color-mix(in srgb, var(--color-brand-soft) 14%, transparent), transparent 45%),
+    radial-gradient(circle at 90% 85%, color-mix(in srgb, var(--tw-sky-400) 13%, transparent), transparent 40%),
+    color-mix(in srgb, var(--color-fd-secondary) 90%, var(--color-fd-card));
 }
 
 .code-block-shell {
   position: relative;
 }
 
+.component-code {
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 86%, transparent);
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, var(--color-fd-secondary) 74%, var(--color-fd-card));
+  color: var(--color-fd-foreground);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  padding: 2.3rem 0.9rem 0.9rem;
+}
+
 .copy-button {
-  border: 1px solid color-mix(in srgb, var(--color-fd-border) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 88%, transparent);
+  border-radius: 0.56rem;
+  background: color-mix(in srgb, var(--color-fd-card) 92%, transparent);
+  color: var(--color-fd-muted-foreground);
+  padding: 0.24rem 0.52rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+
+.copy-button:hover {
+  color: var(--color-fd-foreground);
+  border-color: color-mix(in srgb, var(--color-brand-strong) 26%, var(--color-fd-border));
+  background: color-mix(in srgb, var(--color-brand-soft) 11%, var(--color-fd-card));
+}
+
+.component-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.component-table th {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-fd-border) 90%, transparent);
+  color: var(--color-fd-muted-foreground);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.component-table td {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-fd-border) 68%, transparent);
+}
+
+.editorial-docs-page {
+  gap: 1.15rem;
+}
+
+.editorial-docs-page :is(p, li) {
+  line-height: 1.72;
+}
+
+.editorial-docs-page :is(h1, h2, h3) {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .component-section {
+    padding: 0.9rem;
+  }
+
+  .component-code {
+    padding-top: 2rem;
+  }
 }
