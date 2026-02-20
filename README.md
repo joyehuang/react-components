@@ -1,20 +1,35 @@
 # RC LAB Component Workspace
 
-Monorepo for a copy-first React component library:
+A copy-first React component library built as a PNPM monorepo. Components are copied into user projects (like shadcn/ui) rather than distributed via npm packages.
 
-- `apps/playground`: Vite sandbox for component development and preview.
-- `apps/docs`: Next.js + Fumadocs documentation site.
-- `packages/registry`: Manifest source of truth for component metadata.
-- `packages/ui`: Component source package.
-- `packages/cli`: `rc-components` installer CLI.
-- `packages/quality`: Stable gate checks.
+## 📚 Documentation
 
-## Quick Start
+**Start here for development**:
+- **[QUICK_START.md](QUICK_START.md)** - Fast onboarding for new sessions (5 min read)
+- **[EXECUTION_PLAN.md](EXECUTION_PLAN.md)** - Detailed roadmap and current tasks (10 min read)
+- **[CLAUDE.md](CLAUDE.md)** - Comprehensive development guide (15 min read)
+- **[COMPONENT_SPEC.md](COMPONENT_SPEC.md)** - Component standards and templates (reference)
+- **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - High-level overview and vision (reference)
+- **[CHANGELOG.md](CHANGELOG.md)** - Progress tracking log (check before starting work)
+
+## 🏗️ Monorepo Structure
+
+- `apps/playground`: Vite sandbox for component development and preview
+- `apps/docs`: Next.js + Fumadocs documentation site
+- `packages/registry`: Manifest source of truth for component metadata
+- `packages/ui`: Component source package (no build step)
+- `packages/cli`: `rc-components` installer CLI
+- `packages/quality`: Stable gate checks
+
+## 🚀 Quick Start
 
 ```bash
+# Install dependencies
 pnpm install
-pnpm dev:playground
-pnpm dev:docs
+
+# Start development servers
+pnpm dev:playground    # Component sandbox (http://localhost:5173)
+pnpm dev:docs          # Documentation site (http://localhost:3000)
 ```
 
 ## Workspace Commands
@@ -40,9 +55,30 @@ pnpm --filter @rc-lab/cli components add credit-card --cwd C:/path/to/app
 pnpm --filter @rc-lab/cli components doctor --cwd C:/path/to/app
 ```
 
-## Architecture Notes
+## 🎯 Current Status
 
-- Single source of truth: `packages/registry/manifest/components.json`
-- Docs and CLI both consume the manifest.
-- Preferred component API: named exports from `@rc-lab/ui`.
-- Pilot quality migration target: `CreditCard` and `TextScatter`.
+**Phase**: Foundation Cleanup (Phase 1 of 2)
+
+**Next Task**: Unify component directory structure
+
+See [EXECUTION_PLAN.md](EXECUTION_PLAN.md) for details.
+
+## 🏛️ Architecture Highlights
+
+- **Registry-Driven**: `packages/registry/manifest/components.json` is single source of truth
+- **Copy-First Distribution**: Users get full source code ownership
+- **No Build Step**: Components exported as source for faster iteration
+- **Design Tokens**: CSS variables for theming (global system coming in Task #2)
+- **Quality Reference**: `CreditCard` component demonstrates all standards
+
+## 📖 For Claude Code
+
+If you're Claude Code working on this project:
+1. Read [QUICK_START.md](QUICK_START.md) first
+2. Check [CHANGELOG.md](CHANGELOG.md) for latest progress
+3. Follow [EXECUTION_PLAN.md](EXECUTION_PLAN.md) for tasks
+4. Reference [COMPONENT_SPEC.md](COMPONENT_SPEC.md) when coding
+
+## 🤝 Contributing
+
+This is a personal learning project. See [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) for vision and goals.
