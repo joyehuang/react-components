@@ -1,0 +1,53 @@
+---
+title: Plugin Contract
+description: Interface contract for the future effect-capture plugin and skill pipeline.
+---
+
+# Plugin Contract
+
+This release defines interfaces and workflow only. Plugin runtime implementation is intentionally deferred.
+
+## CapturedEffectSpec
+
+```ts
+type CapturedEffectSpec = {
+  id: string
+  source: 'figma-plugin' | 'browser-extension' | 'manual'
+  capturedAt: string
+  previewImagePath?: string
+  interactionSummary: string
+  styleHints: string[]
+  motionHints: string[]
+}
+```
+
+## GeneratedComponentDraft
+
+```ts
+type GeneratedComponentDraft = {
+  draftId: string
+  effectId: string
+  componentName: string
+  proposedProps: Array<{ name: string; type: string; defaultValue?: string }>
+  files: string[]
+  notes: string[]
+}
+```
+
+## QualityCheckReport
+
+```ts
+type QualityCheckReport = {
+  draftId: string
+  score: number
+  issues: Array<{ severity: 'low' | 'medium' | 'high'; message: string }>
+  gate: 'pass' | 'fail'
+}
+```
+
+## Workflow
+
+1. Capture tool outputs `CapturedEffectSpec`.
+2. Componentization skill generates `GeneratedComponentDraft`.
+3. Quality skill emits `QualityCheckReport`.
+4. Human review approves API, accessibility, and docs completeness.

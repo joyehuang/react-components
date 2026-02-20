@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+:root {
+  --color-brand-1: #1d4ed8;
+  --color-brand-2: #0f766e;
+}
+
+body {
+  font-family: var(--font-sans), 'Segoe UI', sans-serif;
+}
+
+.component-preview-frame {
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 72%, transparent);
+  background:
+    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--color-brand-1) 16%, transparent), transparent 42%),
+    radial-gradient(circle at 88% 92%, color-mix(in srgb, var(--color-brand-2) 16%, transparent), transparent 40%),
+    var(--color-fd-secondary);
+}
+
+.code-block-shell {
+  position: relative;
+}
+
+.copy-button {
+  border: 1px solid color-mix(in srgb, var(--color-fd-border) 72%, transparent);
+}

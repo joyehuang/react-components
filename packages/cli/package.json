@@ -1,0 +1,16 @@
+{
+  "name": "@rc-lab/cli",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "rc-components": "./src/index.mjs"
+  },
+  "scripts": {
+    "build": "echo \"cli package is source-only\"",
+    "components": "node ./src/index.mjs",
+    "lint": "echo \"No cli lint configured\"",
+    "typecheck": "echo \"No cli typecheck configured\"",
+    "test": "echo \"No cli tests configured\""
+  }
+}

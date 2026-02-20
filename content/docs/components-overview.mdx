@@ -1,0 +1,24 @@
+---
+title: Components Overview
+description: How the manifest, UI package, docs pages, and CLI fit together.
+---
+
+# Components Overview
+
+The single source of truth is:
+
+- `packages/registry/manifest/components.json`
+
+Each component entry defines:
+
+- metadata (`slug`, `category`, `status`, `tags`)
+- install data (`files`, `dependencies`, `importStatement`)
+- API docs (`props`, `examples`, `a11yNotes`, `controlledPatterns`)
+
+This data powers:
+
+- docs list + detail pages
+- CLI `add/list/doctor`
+- quality gate checks
+
+Open the live catalog at `/docs/components`.

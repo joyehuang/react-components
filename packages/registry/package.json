@@ -1,0 +1,21 @@
+{
+  "name": "@rc-lab/registry",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types.ts",
+    "./manifest": "./manifest/components.json"
+  },
+  "scripts": {
+    "build": "echo \"registry package is source-only\"",
+    "lint": "echo \"No registry lint configured\"",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "test": "echo \"No registry tests configured\"",
+    "validate": "node ./scripts/validate-manifest.mjs"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3"
+  }
+}

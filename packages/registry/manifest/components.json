@@ -1,0 +1,269 @@
+[
+  {
+    "slug": "credit-card",
+    "name": "Credit Card",
+    "summary": "Interactive 3D bank card with tilt, glare, keyboard support, and controlled flip mode.",
+    "category": "Cards",
+    "status": "stable",
+    "tags": ["3d", "card", "interactive"],
+    "previewTheme": "dark",
+    "importStatement": "import { CreditCard } from '@rc-lab/ui'",
+    "exampleCode": "<CreditCard cardNumber=\"1234 5678 9012 3456\" cardholder=\"JOHN DOE\" expires=\"12/25\" cvv=\"123\" width={480} />",
+    "files": ["components/ui/credit-card.tsx", "components/ui/credit-card.css"],
+    "installNotes": [
+      "Copy both files into your project under src/components/ui.",
+      "Use the named export CreditCard for direct reuse."
+    ],
+    "props": [
+      { "name": "cardNumber", "type": "string", "defaultValue": "1234 5678 9012 3456", "description": "Card number text." },
+      { "name": "cardholder", "type": "string", "defaultValue": "JOHN DOE", "description": "Cardholder text on the front face." },
+      { "name": "expires", "type": "string", "defaultValue": "12/25", "description": "Expiration date label." },
+      { "name": "cvv", "type": "string", "defaultValue": "123", "description": "CVV number on the back face." },
+      { "name": "maxTilt", "type": "number", "defaultValue": "14", "description": "Maximum pointer tilt amount in degrees." },
+      { "name": "width", "type": "number | string", "defaultValue": "480", "description": "Card width via CSS size token." },
+      { "name": "clickToFlip", "type": "boolean", "defaultValue": "true", "description": "Enables click and keyboard flip interaction." },
+      { "name": "flipped", "type": "boolean", "description": "Controlled flipped state when provided." },
+      { "name": "defaultFlipped", "type": "boolean", "defaultValue": "false", "description": "Initial state for uncontrolled mode." },
+      { "name": "onFlippedChange", "type": "(next: boolean) => void", "description": "Called when flip state changes." }
+    ],
+    "dependencies": [],
+    "peerDependencies": ["react", "react-dom"],
+    "a11yNotes": [
+      "Supports keyboard flip with Enter/Space when clickToFlip is enabled.",
+      "Interactive mode exposes aria-label and aria-pressed."
+    ],
+    "controlledPatterns": ["Supports controlled and uncontrolled flip state."],
+    "knownLimitations": ["Reduced motion mode disables pointer tilt animation."],
+    "updatedAt": "2026-02-20",
+    "sourceDoc": "docs/CreditCard.md",
+    "examples": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Default card with pointer tilt and flip interaction.",
+        "code": "<CreditCard />"
+      },
+      {
+        "id": "controlled",
+        "label": "Controlled",
+        "description": "Controlled card managed from parent state.",
+        "code": "<CreditCard flipped={isFlipped} onFlippedChange={setIsFlipped} />"
+      }
+    ]
+  },
+  {
+    "slug": "simple-graph",
+    "name": "Simple Graph",
+    "summary": "Animated line graph with smooth path drawing, hover tooltip, and configurable visual tokens.",
+    "category": "Data Visualization",
+    "status": "stable",
+    "tags": ["chart", "svg", "line"],
+    "previewTheme": "dark",
+    "importStatement": "import { SimpleGraph } from '@rc-lab/ui'",
+    "exampleCode": "<SimpleGraph height={392} animationDurationMs={1550} points={[{ id: 'jan', label: 'Jan', value: 48.5 }, { id: 'feb', label: 'Feb', value: -42.8 }, { id: 'mar', label: 'Mar', value: 67.2 }]} />",
+    "files": ["components/SimpleGraph.tsx", "components/SimpleGraph.css"],
+    "installNotes": [
+      "Copy both files into your components folder.",
+      "Pass your own points array to match project data."
+    ],
+    "props": [
+      { "name": "points", "type": "Array<{ id; label; value }>", "description": "Data points rendered along the chart axis." },
+      { "name": "height", "type": "number | string", "defaultValue": "390", "description": "Panel height." },
+      { "name": "showGrid", "type": "boolean", "defaultValue": "true", "description": "Toggles horizontal guide lines." },
+      { "name": "showArea", "type": "boolean", "defaultValue": "false", "description": "Shows gradient area fill under the line." },
+      { "name": "animationDurationMs", "type": "number", "defaultValue": "1400", "description": "Line draw animation duration." },
+      { "name": "colors", "type": "Partial<SimpleGraphColorOverrides>", "description": "Theme token overrides." }
+    ],
+    "dependencies": [],
+    "peerDependencies": ["react", "react-dom"],
+    "a11yNotes": [
+      "Data points are keyboard-focusable to expose tooltip state.",
+      "Tooltip region uses role=status with aria-live polite."
+    ],
+    "controlledPatterns": ["Uncontrolled interaction component."],
+    "knownLimitations": ["No screen-reader table fallback is generated automatically."],
+    "updatedAt": "2026-02-20",
+    "sourceDoc": "docs/roadmap.md",
+    "examples": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Line graph with hover tooltip.",
+        "code": "<SimpleGraph />"
+      }
+    ]
+  },
+  {
+    "slug": "neon-network",
+    "name": "Neon Network",
+    "summary": "Center-node neon network animation with start/restart controls and CSS-variable-driven theming.",
+    "category": "Visual Effects",
+    "status": "stable",
+    "tags": ["network", "neon", "svg"],
+    "previewTheme": "dark",
+    "importStatement": "import { NeonNetwork } from '@rc-lab/ui'",
+    "exampleCode": "<NeonNetwork startLabel=\"Start\" restartLabel=\"Restart\" fillDurationMs={2200} />",
+    "files": ["components/NeonNetwork.tsx", "components/NeonNetwork.css"],
+    "installNotes": [
+      "Copy component and CSS files together.",
+      "Optionally disable controls with showControls={false}."
+    ],
+    "props": [
+      { "name": "showControls", "type": "boolean", "defaultValue": "true", "description": "Shows the start/restart button." },
+      { "name": "autoStart", "type": "boolean", "defaultValue": "false", "description": "Auto-runs animation on mount." },
+      { "name": "fillDurationMs", "type": "number", "defaultValue": "2200", "description": "Core line fill duration." },
+      { "name": "glowDurationMs", "type": "number", "description": "Glow line fill duration." },
+      { "name": "maxWidth", "type": "number | string", "defaultValue": "1024", "description": "Maximum stage width." },
+      { "name": "colors", "type": "Partial<NeonNetworkColorOverrides>", "description": "Token overrides for lines/nodes/button." },
+      { "name": "onComplete", "type": "() => void", "description": "Called after one animation cycle completes." }
+    ],
+    "dependencies": [],
+    "peerDependencies": ["react", "react-dom"],
+    "a11yNotes": [
+      "Interactive controls use semantic button element.",
+      "Animation-only nodes are hidden from assistive tech."
+    ],
+    "controlledPatterns": ["Uncontrolled interaction component."],
+    "knownLimitations": ["Does not expose a paused state for timeline control."],
+    "updatedAt": "2026-02-20",
+    "sourceDoc": "docs/NeonNetwork.md",
+    "examples": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Default network with controls enabled.",
+        "code": "<NeonNetwork />"
+      }
+    ]
+  },
+  {
+    "slug": "cylindrical-text-reveal",
+    "name": "Cylindrical Text Reveal",
+    "summary": "Scroll-driven 3D cylindrical headline effect powered by GSAP ScrollTrigger.",
+    "category": "Text Motion",
+    "status": "stable",
+    "tags": ["scroll", "3d", "headline"],
+    "previewTheme": "dark",
+    "importStatement": "import { CylindricalTextReveal } from '@rc-lab/ui'",
+    "exampleCode": "<CylindricalTextReveal lines={['EXPLORE', 'THE', 'FUTURE', 'OF', 'DESIGN']} stickyTopOffset=\"72px\" sectionMinHeight=\"240vh\" />",
+    "files": ["components/ui/cylindrical-text-reveal.tsx", "components/ui/cylindrical-text-reveal.css"],
+    "installNotes": [
+      "Keep gsap in dependencies: pnpm add gsap.",
+      "Copy TSX and CSS files to src/components/ui."
+    ],
+    "props": [
+      { "name": "lines", "type": "string[]", "description": "Uppercase text lines rendered on the cylinder." },
+      { "name": "stickyTopOffset", "type": "string", "defaultValue": "0px", "description": "Sticky top offset for pinned stage." },
+      { "name": "sectionMinHeight", "type": "string", "defaultValue": "240vh", "description": "Scroll section height." },
+      { "name": "radius", "type": "number", "defaultValue": "330", "description": "Cylinder radius used in transform math." },
+      { "name": "angleStep", "type": "number", "defaultValue": "0.26", "description": "Angle spacing between text lines." },
+      { "name": "rollStartAngle", "type": "number", "defaultValue": "1.2", "description": "Initial roll angle in radians." },
+      { "name": "rollEndAngle", "type": "number", "defaultValue": "-1.35", "description": "Final roll angle in radians." }
+    ],
+    "dependencies": [{ "name": "gsap", "type": "dependency", "version": "^3.14.2" }],
+    "peerDependencies": ["react", "react-dom"],
+    "a11yNotes": [
+      "Honors prefers-reduced-motion and skips ScrollTrigger timeline.",
+      "Provides section aria-label for effect context."
+    ],
+    "controlledPatterns": ["Uncontrolled interaction component."],
+    "knownLimitations": ["Requires scroll container behavior to stay at document level."],
+    "updatedAt": "2026-02-20",
+    "sourceDoc": "docs/CylindricalTextReveal.md",
+    "examples": [
+      {
+        "id": "headline",
+        "label": "Hero Headline",
+        "description": "Large scroll-driven hero transition.",
+        "code": "<CylindricalTextReveal lines={['EXPLORE', 'THE', 'FUTURE']} />"
+      }
+    ]
+  },
+  {
+    "slug": "text-scatter",
+    "name": "Text Scatter",
+    "summary": "Pointer-reactive spring text displacement effect with configurable physics and typography tokens.",
+    "category": "Text Motion",
+    "status": "beta",
+    "tags": ["pointer", "physics", "text"],
+    "previewTheme": "dark",
+    "importStatement": "import { TextScatter } from '@rc-lab/ui'",
+    "exampleCode": "<TextScatter text=\"Bounce Back.\" triggerRadius={150} force={2.6} spring={0.065} damping={0.86} />",
+    "files": ["components/TextScatter.tsx", "components/TextScatter.css"],
+    "installNotes": [
+      "Copy TSX and CSS files.",
+      "No external runtime dependencies required."
+    ],
+    "props": [
+      { "name": "text", "type": "string", "defaultValue": "Bounce Back.", "description": "Rendered text content." },
+      { "name": "triggerRadius", "type": "number", "defaultValue": "150", "description": "Pointer influence radius per character." },
+      { "name": "force", "type": "number", "defaultValue": "2.6", "description": "Repulsion force when pointer approaches." },
+      { "name": "spring", "type": "number", "defaultValue": "0.065", "description": "Spring pull to baseline." },
+      { "name": "damping", "type": "number", "defaultValue": "0.86", "description": "Velocity damping multiplier." },
+      { "name": "minHeight", "type": "number | string", "defaultValue": "calc(100vh - var(--app-header-height, 72px))", "description": "Section minimum height." },
+      { "name": "maxWidth", "type": "number | string", "defaultValue": "980", "description": "Stage maximum width." }
+    ],
+    "dependencies": [],
+    "peerDependencies": ["react", "react-dom"],
+    "a11yNotes": [
+      "Section exposes aria-label for effect context.",
+      "Reduced motion users receive static text without transforms."
+    ],
+    "controlledPatterns": ["Uncontrolled interaction component."],
+    "knownLimitations": ["High triggerRadius values can cause dense glyph overlap."],
+    "updatedAt": "2026-02-20",
+    "sourceDoc": "docs/roadmap.md",
+    "examples": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Pointer-reactive bounce with default physics.",
+        "code": "<TextScatter />"
+      }
+    ]
+  },
+  {
+    "slug": "text-scatter-burst",
+    "name": "Text Scatter Burst",
+    "summary": "Directional letter burst effect with bounded scatter distance and spring return.",
+    "category": "Text Motion",
+    "status": "stable",
+    "tags": ["pointer", "burst", "letters"],
+    "previewTheme": "dark",
+    "importStatement": "import { TextScatterBurst } from '@rc-lab/ui'",
+    "exampleCode": "<TextScatterBurst text=\"Bounce Back.\" triggerRadius={84} scatterHoldMs={1200} />",
+    "files": ["components/TextScatterBurst.tsx", "components/TextScatterBurst.css"],
+    "installNotes": [
+      "Copy TSX and CSS files.",
+      "Tune triggerRadius and scatterHoldMs for your interaction style."
+    ],
+    "props": [
+      { "name": "text", "type": "string", "defaultValue": "Bounce Back.", "description": "Rendered text content." },
+      { "name": "minHeight", "type": "number | string", "defaultValue": "72vh", "description": "Minimum section height." },
+      { "name": "maxWidth", "type": "number | string", "defaultValue": "1020", "description": "Maximum stage width." },
+      { "name": "triggerRadius", "type": "number", "defaultValue": "78", "description": "Pointer trigger radius per character." },
+      { "name": "scatterHoldMs", "type": "number", "defaultValue": "1200", "description": "How long characters stay exploded." },
+      { "name": "targetScatterDistance", "type": "number", "defaultValue": "320", "description": "Preferred outward travel distance." },
+      { "name": "spring", "type": "number", "defaultValue": "0.06", "description": "Spring force for returning letters." },
+      { "name": "damping", "type": "number", "defaultValue": "0.86", "description": "Velocity damping multiplier." }
+    ],
+    "dependencies": [],
+    "peerDependencies": ["react", "react-dom"],
+    "a11yNotes": [
+      "Reduced motion users receive static content without per-letter transforms.",
+      "Stage uses semantic section with aria-label."
+    ],
+    "controlledPatterns": ["Uncontrolled interaction component."],
+    "knownLimitations": ["Scatter can still overlap tightly packed text in narrow layouts."],
+    "updatedAt": "2026-02-20",
+    "sourceDoc": "docs/TextScatterBurst.md",
+    "examples": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Directional burst with spring return.",
+        "code": "<TextScatterBurst />"
+      }
+    ]
+  }
+]

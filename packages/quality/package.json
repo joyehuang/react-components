@@ -1,0 +1,13 @@
+{
+  "name": "@rc-lab/quality",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "echo \"quality package is script-only\"",
+    "lint": "echo \"No quality lint configured\"",
+    "typecheck": "echo \"No quality typecheck configured\"",
+    "test": "echo \"No quality tests configured\"",
+    "check": "node ./src/check.mjs"
+  }
+}

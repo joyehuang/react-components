@@ -1,0 +1,37 @@
+{
+  "name": "@rc-lab/docs",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "echo \"No docs lint configured\"",
+    "typecheck": "fumadocs-mdx && next typegen && tsc --noEmit",
+    "test": "echo \"No docs tests configured\"",
+    "postinstall": "fumadocs-mdx"
+  },
+  "dependencies": {
+    "@rc-lab/registry": "workspace:*",
+    "@rc-lab/ui": "workspace:*",
+    "fumadocs-core": "16.6.3",
+    "fumadocs-mdx": "14.2.7",
+    "fumadocs-ui": "16.6.3",
+    "lucide-react": "^0.570.0",
+    "next": "16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwind-merge": "^3.4.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^25.2.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  }
+}
