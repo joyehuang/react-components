@@ -132,13 +132,42 @@ export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
 ComponentName.displayName = 'ComponentName'
 ```
 
-### 4. CSS Variable Pattern
+### 4. Styling System (Tailwind CSS)
 
-Each component uses CSS variables for theming:
-- Component-specific variables use prefixes (e.g., `--cc-*` for CreditCard, `--nn-*` for NeonNetwork)
-- Variables defined on root element, allowing user overrides via `style` prop or global CSS
+**RC LAB uses Tailwind CSS** to align with modern React component libraries (shadcn/ui, react-bits, Aceternity UI).
 
-**Future Goal**: Establish global design tokens (e.g., `--rc-primary`, `--rc-background`) that component-specific variables reference.
+**Key Decisions**:
+- **Primary styling**: Tailwind utility classes
+- **Complex animations**: Minimal CSS files (only for keyframes, 3D transforms, etc.)
+- **Design tokens**: Defined in `tailwind.config.ts` (colors, spacing, border-radius)
+- **className merging**: `cn()` utility (clsx + tailwind-merge)
+
+**Example Pattern**:
+```tsx
+import { cn } from '@/lib/utils'
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant = 'default', ...rest }, ref) => {
+    return (
+      <button
+        ref={ref}
+        className={cn(
+          'inline-flex items-center rounded-rc-md px-4 py-2',
+          variant === 'default' && 'bg-rc-primary text-white',
+          variant === 'outline' && 'border border-rc-border',
+          className // User overrides last
+        )}
+        {...rest}
+      />
+    )
+  }
+)
+```
+
+**Migration Status** (as of Task #2):
+- All 7 existing components will be rewritten to use Tailwind CSS
+- Complex animations preserved in minimal CSS files
+- See EXECUTION_PLAN.md Task #2 for migration details
 
 ### 5. Documentation Site Architecture
 
@@ -261,10 +290,10 @@ git push
 See `CHANGELOG.md` for ongoing refactoring work.
 
 **Critical Issues**:
-1. **Inconsistent file structure** - Components split between `ui/` and root of `components/`
-2. **No global design token system** - Each component has isolated CSS variables
-3. **Missing code syntax highlighting** in docs
-4. **No multi-example support** in component previews (manifest has `examples` field but UI doesn't render them)
+1. **Inconsistent file structure** - Components split between `ui/` and root of `components/` (Task #1)
+2. **Pure CSS instead of Tailwind** - All components need migration to Tailwind CSS (Task #2)
+3. **Missing code syntax highlighting** in docs (Task #4)
+4. **No multi-example support** in component previews (Task #5)
 
 **Quality Targets**:
 - All components should match `CreditCard` quality level (forwardRef, TypeScript, accessibility, tests)

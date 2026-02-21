@@ -66,57 +66,195 @@ packages/ui/src/components/ui/
 
 ---
 
-### Task 2: Establish Global Design Token System
+### Task 2: Migrate to Tailwind CSS and Establish Design System
 
-**Depends On**: Task 1 (need to know where CSS files are)
+**Depends On**: Task 1 (need unified structure first)
 
-**Current Problem**: Each component has isolated CSS variables:
-```css
-/* credit-card.css */
---cc-front-from: #dedede;
+**Current Problem**: Components use pure CSS with isolated variables, inconsistent with modern React component libraries (shadcn/ui, react-bits, Aceternity UI all use Tailwind CSS).
 
-/* neon-network.css */
---nn-line-base: rgba(99, 102, 140, 0.26);
+**Solution**: Migrate all 7 components to Tailwind CSS with global design tokens.
+
+**Why Tailwind CSS**:
+- Aligns with shadcn/ui and all modern component libraries
+- Easier user customization via `className` prop
+- Future component-builder skill will generate Tailwind code
+- Industry standard for copy-paste component libraries
+
+**Pre-requisites Check**:
+```bash
+# Verify Tailwind is installed in all needed packages
+pnpm --filter @rc-lab/ui add -D tailwindcss postcss autoprefixer
+pnpm --filter @rc-lab/docs add -D tailwindcss postcss autoprefixer
+pnpm --filter @rc-lab/playground add -D tailwindcss postcss autoprefixer
+
+# Install utilities
+pnpm --filter @rc-lab/ui add clsx tailwind-merge
 ```
 
-**Solution**: Create global semantic tokens that components reference.
-
 **Steps**:
-1. Create `packages/ui/src/tokens.css`
-2. Define semantic variables:
-   ```css
-   :root {
-     --rc-primary: #7c3aed;
-     --rc-background: #0a0a0a;
-     --rc-surface: #1a1a1a;
-     --rc-text: #f5f5f5;
-     --rc-text-muted: #a1a1aa;
-     --rc-border: rgba(255, 255, 255, 0.1);
-     --rc-radius-sm: 0.375rem;
-     --rc-radius-md: 0.5rem;
-     --rc-radius-lg: 0.75rem;
+
+#### Part A: Setup Tailwind Config (1-2 hours)
+
+1. **Create `tailwind.config.ts` in packages/ui/**:
+   ```typescript
+   import type { Config } from 'tailwindcss'
+
+   export default {
+     content: ['./src/**/*.{ts,tsx}'],
+     theme: {
+       extend: {
+         colors: {
+           'rc-primary': {
+             DEFAULT: '#7c3aed',
+             dark: '#5b21b6',
+             light: '#a78bfa',
+           },
+           'rc-background': '#0a0a0a',
+           'rc-surface': '#1a1a1a',
+           'rc-text': {
+             DEFAULT: '#f5f5f5',
+             muted: '#a1a1aa',
+           },
+           'rc-border': 'rgba(255, 255, 255, 0.1)',
+         },
+         borderRadius: {
+           'rc-sm': '0.375rem',
+           'rc-md': '0.5rem',
+           'rc-lg': '0.75rem',
+           'rc-xl': '1rem',
+         },
+         spacing: {
+           'rc-xs': '0.25rem',
+           'rc-sm': '0.5rem',
+           'rc-md': '1rem',
+           'rc-lg': '1.5rem',
+           'rc-xl': '2rem',
+         },
+       },
+     },
+     plugins: [],
+   } satisfies Config
+   ```
+
+2. **Create `lib/utils.ts` with cn() helper**:
+   ```typescript
+   import { clsx, type ClassValue } from 'clsx'
+   import { twMerge } from 'tailwind-merge'
+
+   export function cn(...inputs: ClassValue[]) {
+     return twMerge(clsx(inputs))
    }
    ```
-3. Update each component CSS to reference tokens:
-   ```css
-   .component-name {
-     background: var(--rc-background);
-     color: var(--rc-text);
-     border: 1px solid var(--rc-border);
-   }
+
+3. **Update `packages/ui/src/index.ts`** to export utils:
+   ```typescript
+   export { cn } from './lib/utils'
    ```
-4. Import tokens in `packages/ui/src/index.ts`
-5. Update docs to import tokens
-6. Create token showcase page in docs
-7. Document token system in README
-8. Commit: `feat: add global design token system`
-9. **Push immediately**: `git push`
+
+4. **Commit**: `feat: add Tailwind CSS configuration and cn() utility`
+5. **Push**: `git push`
+
+#### Part B: Migrate Components (2-3 days)
+
+Rewrite each component from pure CSS to Tailwind CSS. **Order (easiest to hardest)**:
+
+**Day 1 - Simple Components**:
+
+6. **Migrate Scroll3DHeadline** (no complex state):
+   - Remove CSS file entirely
+   - Convert all styles to Tailwind classes
+   - Test in playground
+   - Commit: `refactor(scroll-3d-headline): migrate to Tailwind CSS`
+   - Push: `git push`
+
+7. **Migrate SimpleGraph**:
+   - Keep SVG-related CSS in separate file
+   - Convert container/layout styles to Tailwind
+   - Keep animation keyframes in CSS if needed
+   - Commit: `refactor(simple-graph): migrate to Tailwind CSS`
+   - Push: `git push`
+
+8. **Migrate NeonNetwork**:
+   - Keep SVG path animations in CSS
+   - Convert button/container styles to Tailwind
+   - Test animation still works
+   - Commit: `refactor(neon-network): migrate to Tailwind CSS`
+   - Push: `git push`
+
+**Day 2 - Medium Complexity**:
+
+9. **Migrate TextScatter**:
+   - Convert layout to Tailwind
+   - Keep physics-based transform in inline styles (controlled by JS)
+   - Commit: `refactor(text-scatter): migrate to Tailwind CSS`
+   - Push: `git push`
+
+10. **Migrate TextScatterBurst**:
+    - Similar to TextScatter
+    - Keep transform animations
+    - Commit: `refactor(text-scatter-burst): migrate to Tailwind CSS`
+    - Push: `git push`
+
+**Day 3 - Complex Components**:
+
+11. **Migrate CreditCard** (most complex):
+    - Convert base styles to Tailwind
+    - Keep 3D transform/flip animation in CSS
+    - Keep glare effect in CSS
+    - Test controlled/uncontrolled modes
+    - Commit: `refactor(credit-card): migrate to Tailwind CSS`
+    - Push: `git push`
+
+12. **Migrate CylindricalTextReveal**:
+    - Convert container to Tailwind
+    - Keep 3D cylinder transform in CSS
+    - Keep ScrollTrigger animations
+    - Commit: `refactor(cylindrical-text-reveal): migrate to Tailwind CSS`
+    - Push: `git push`
+
+#### Part C: Documentation & Cleanup
+
+13. **Update docs site** to use new Tailwind tokens:
+    - Update global styles
+    - Test component previews render correctly
+    - Commit: `style(docs): update to use Tailwind design tokens`
+    - Push: `git push`
+
+14. **Create token showcase page**:
+    - Add `/docs/design-tokens` page
+    - Show color palette
+    - Show spacing scale
+    - Show border radius options
+    - Commit: `docs: add design tokens showcase page`
+    - Push: `git push`
+
+15. **Update manifest entries**:
+    - Update installation notes (mention Tailwind requirement)
+    - Update examples with new className patterns
+    - Commit: `docs: update manifest for Tailwind migration`
+    - Push: `git push`
+
+16. **Final testing**:
+    - Test all components in playground
+    - Test all components in docs
+    - Test CLI still copies files correctly
+    - Run `pnpm typecheck` and `pnpm test`
+
+17. **Final commit**: `feat: complete migration to Tailwind CSS`
+18. **Push**: `git push`
 
 **Success Criteria**:
-- ✅ `tokens.css` created and imported
-- ✅ All component CSS references global tokens
-- ✅ Components still render correctly
-- ✅ Documentation page shows token palette
+- ✅ All 7 components use Tailwind CSS for primary styling
+- ✅ Complex animations preserved in minimal CSS files
+- ✅ All components use `cn()` utility
+- ✅ Tailwind config has RC LAB design tokens
+- ✅ All components render identically to before
+- ✅ No TypeScript errors
+- ✅ All tests pass
+- ✅ Documentation updated
+- ✅ Token showcase page created
+
+**Estimated Time**: 2-3 days (depending on complexity discoveries)
 
 ---
 

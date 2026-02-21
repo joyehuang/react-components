@@ -88,6 +88,44 @@ This file tracks all refactoring and improvement work for the RC LAB component l
 
 ---
 
+### Session 2: Critical Decision - Migrate to Tailwind CSS ✅
+
+**Date**: 2026-02-21
+
+**Context**: User pointed out that all modern React component libraries (shadcn/ui, react-bits, Aceternity UI, Magic UI) use Tailwind CSS, not pure CSS. Since the goal is to build a shadcn/ui-level library, we should align with industry standards.
+
+**Decision Made**:
+- ✅ **Migrate all components to Tailwind CSS**
+- ✅ All 7 existing components will be rewritten in Task #2
+- ✅ Use Tailwind utility classes for primary styling
+- ✅ Keep minimal CSS files only for complex animations (keyframes, 3D transforms)
+- ✅ Establish design tokens in `tailwind.config.ts`
+- ✅ Use `cn()` utility (clsx + tailwind-merge) for className merging
+
+**Updated Documentation**:
+- ✅ COMPONENT_SPEC.md - Completely rewritten CSS Standards section for Tailwind
+- ✅ COMPONENT_SPEC.md - Updated code templates to use `cn()` utility
+- ✅ EXECUTION_PLAN.md - Rewrote Task #2 with detailed Tailwind migration plan
+- ✅ CLAUDE.md - Added "Styling System (Tailwind CSS)" section
+- ✅ PROJECT_SUMMARY.md - Updated architecture highlights and success criteria
+- ✅ Task #2 - Updated task title and description
+
+**Rationale**:
+1. **Industry Standard**: All inspiration sources use Tailwind
+2. **User Customization**: Easier to override via `className` prop
+3. **Future-Proof**: component-builder skill will generate Tailwind code
+4. **Consistency**: Aligns with copy-paste component library model
+
+**Migration Plan**:
+- Task #2 now includes 17 steps over 2-3 days
+- Migrate components from easiest to hardest
+- Preserve complex animations in minimal CSS
+- Full testing and documentation update
+
+**Next Steps**: Proceed with Task #1 (file structure unification), then Task #2 (Tailwind migration).
+
+---
+
 ### Current State Analysis
 - **7 components** implemented with varying quality levels
 - **Component structure inconsistent**: Some in `ui/` (kebab-case), some in root (PascalCase)

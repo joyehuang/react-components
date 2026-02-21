@@ -56,7 +56,7 @@ react-components/
 **Tasks**:
 1. ✅ Documentation created (CLAUDE.md, EXECUTION_PLAN.md, etc.)
 2. ⏳ Unify component directory structure
-3. ⏳ Establish global design token system
+3. ⏳ **Migrate to Tailwind CSS** and establish design system
 4. ⏳ Audit and standardize component APIs
 5. ⏳ Add syntax highlighting to docs
 6. ⏳ Implement multi-example support
@@ -64,7 +64,8 @@ react-components/
 
 **Success Criteria**:
 - All components in unified `ui/<component-name>/` structure
-- Global token system (`tokens.css`) established
+- **All 7 components migrated to Tailwind CSS**
+- Tailwind config with RC LAB design tokens
 - All components follow COMPONENT_SPEC.md standards
 - Test coverage >= 80%
 - Documentation enhanced with highlighting and examples
@@ -130,10 +131,11 @@ react-components/
    - Faster development iteration
    - Simpler tooling
 
-4. **CSS Variables for Theming**
-   - Global tokens: `--rc-primary`, `--rc-background`, etc.
-   - Component overrides via props
-   - Easy theme switching
+4. **Tailwind CSS for Styling** (aligned with shadcn/ui)
+   - Design tokens in `tailwind.config.ts`
+   - Utility-first styling approach
+   - `cn()` utility for className merging
+   - Complex animations in minimal CSS files
 
 ## 🎨 Component Standards
 
@@ -146,7 +148,8 @@ Every component must:
 - ✅ Accept `className` and `style` props
 - ✅ Have complete TypeScript types with JSDoc
 - ✅ Support controlled/uncontrolled modes (if stateful)
-- ✅ Use global design tokens in CSS
+- ✅ Use Tailwind CSS with `cn()` utility
+- ✅ Reference Tailwind design tokens
 - ✅ Include accessibility features (ARIA, keyboard, reduced motion)
 - ✅ Have comprehensive tests
 - ✅ Have manifest entry with examples

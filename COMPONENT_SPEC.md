@@ -52,11 +52,11 @@ export type { ComponentNameProps } from './components/ui/component-name'
 
 ## Code Template
 
-### Basic Component Template
+### Basic Component Template (Tailwind CSS)
 
 ```tsx
-import { forwardRef, type HTMLAttributes, type CSSProperties } from 'react'
-import './component-name.css'
+import { forwardRef, type HTMLAttributes } from 'react'
+import { cn } from '@/lib/utils'
 
 export type ComponentNameProps = HTMLAttributes<HTMLDivElement> & {
   /**
@@ -78,20 +78,34 @@ export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
   function ComponentName(
     {
       className,
-      style,
       variant = 'default',
       size = 'md',
       ...rest
     },
     ref
   ) {
-    // Component logic here...
-
     return (
       <div
         ref={ref}
-        className={`component-name component-name--${variant} component-name--${size}${className ? ` ${className}` : ''}`}
-        style={style}
+        className={cn(
+          // Base styles
+          'relative flex items-center justify-center',
+          'rounded-rc-md border border-rc-border',
+          'transition-colors duration-200',
+
+          // Variants
+          variant === 'default' && 'bg-rc-primary text-white hover:bg-rc-primary-dark',
+          variant === 'outline' && 'bg-transparent hover:bg-rc-surface',
+          variant === 'ghost' && 'border-transparent hover:bg-rc-surface',
+
+          // Sizes
+          size === 'sm' && 'h-9 px-3 text-sm',
+          size === 'md' && 'h-10 px-4',
+          size === 'lg' && 'h-11 px-8 text-lg',
+
+          // User overrides
+          className
+        )}
         {...rest}
       >
         {/* Component content */}
@@ -105,11 +119,11 @@ ComponentName.displayName = 'ComponentName'
 export default ComponentName
 ```
 
-### Interactive Component with State
+### Interactive Component with State (Tailwind CSS)
 
 ```tsx
-import { forwardRef, useState, useEffect, type HTMLAttributes } from 'react'
-import './component-name.css'
+import { forwardRef, useState, type HTMLAttributes } from 'react'
+import { cn } from '@/lib/utils'
 
 export type ComponentNameProps = HTMLAttributes<HTMLDivElement> & {
   // Controlled mode
@@ -124,7 +138,6 @@ export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
   function ComponentName(
     {
       className,
-      style,
       open,
       onOpenChange,
       defaultOpen = false,
@@ -148,8 +161,17 @@ export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
     return (
       <div
         ref={ref}
-        className={`component-name${isOpen ? ' is-open' : ''}${className ? ` ${className}` : ''}`}
-        style={style}
+        className={cn(
+          // Base styles
+          'relative rounded-rc-lg border border-rc-border',
+          'transition-all duration-300',
+
+          // State-based styles
+          isOpen ? 'bg-rc-surface shadow-xl' : 'bg-rc-background shadow-md',
+
+          // User overrides
+          className
+        )}
         {...rest}
       >
         {/* Component content */}
@@ -184,77 +206,247 @@ export default ComponentName
 
 ---
 
-## CSS Standards
+## Styling Standards (Tailwind CSS)
 
-### Global Design Tokens (FUTURE)
+### Philosophy
 
-When the global token system is established, use these tokens:
+**RC LAB uses Tailwind CSS** to align with modern React component libraries (shadcn/ui, react-bits, Aceternity UI).
 
-```css
-:root {
-  /* Colors */
-  --rc-primary: #7c3aed;
-  --rc-primary-dark: #5b21b6;
-  --rc-background: #0a0a0a;
-  --rc-surface: #1a1a1a;
-  --rc-text: #f5f5f5;
-  --rc-text-muted: #a1a1aa;
-  --rc-border: rgba(255, 255, 255, 0.1);
+**Styling Strategy**:
+- **Primary**: Tailwind utility classes for layout, spacing, colors, and simple styles
+- **Secondary**: Custom CSS files only for complex animations and effects that Tailwind can't handle
+- **Goal**: Maximum customizability via `className` prop
 
-  /* Spacing */
-  --rc-spacing-xs: 0.25rem;
-  --rc-spacing-sm: 0.5rem;
-  --rc-spacing-md: 1rem;
-  --rc-spacing-lg: 1.5rem;
-  --rc-spacing-xl: 2rem;
+### Tailwind Config Design Tokens
 
-  /* Borders */
-  --rc-radius-sm: 0.375rem;
-  --rc-radius-md: 0.5rem;
-  --rc-radius-lg: 0.75rem;
-  --rc-radius-xl: 1rem;
+All components should reference tokens defined in `tailwind.config.ts`:
+
+```typescript
+// tailwind.config.ts
+export default {
+  theme: {
+    extend: {
+      colors: {
+        // RC LAB brand colors
+        'rc-primary': {
+          DEFAULT: '#7c3aed',
+          dark: '#5b21b6',
+          light: '#a78bfa',
+        },
+        'rc-background': '#0a0a0a',
+        'rc-surface': '#1a1a1a',
+        'rc-text': {
+          DEFAULT: '#f5f5f5',
+          muted: '#a1a1aa',
+        },
+        'rc-border': 'rgba(255, 255, 255, 0.1)',
+      },
+      borderRadius: {
+        'rc-sm': '0.375rem',
+        'rc-md': '0.5rem',
+        'rc-lg': '0.75rem',
+        'rc-xl': '1rem',
+      },
+      spacing: {
+        'rc-xs': '0.25rem',
+        'rc-sm': '0.5rem',
+        'rc-md': '1rem',
+        'rc-lg': '1.5rem',
+        'rc-xl': '2rem',
+      },
+    },
+  },
 }
 ```
 
-### Component CSS Pattern
+### Component Styling Pattern
 
+#### Simple Component (Tailwind Only)
+
+```tsx
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  function Button({ className, variant = 'default', size = 'md', ...rest }, ref) {
+    return (
+      <button
+        ref={ref}
+        className={cn(
+          // Base styles
+          'inline-flex items-center justify-center rounded-rc-md font-medium transition-colors',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rc-primary',
+          'disabled:pointer-events-none disabled:opacity-50',
+
+          // Variants
+          variant === 'default' && 'bg-rc-primary text-white hover:bg-rc-primary-dark',
+          variant === 'outline' && 'border border-rc-border bg-transparent hover:bg-rc-surface',
+          variant === 'ghost' && 'hover:bg-rc-surface',
+
+          // Sizes
+          size === 'sm' && 'h-9 px-3 text-sm',
+          size === 'md' && 'h-10 px-4',
+          size === 'lg' && 'h-11 px-8 text-lg',
+
+          // User overrides
+          className
+        )}
+        {...rest}
+      />
+    )
+  }
+)
+```
+
+**Key Points**:
+- Use `cn()` utility (clsx + tailwind-merge) for className merging
+- Base styles first, then variants, then sizes, then user className
+- No separate CSS file needed
+
+#### Complex Component (Tailwind + CSS)
+
+For components with complex animations or 3D effects:
+
+```tsx
+import './credit-card.css' // Only for animations
+
+export const CreditCard = forwardRef<HTMLDivElement, CreditCardProps>(
+  function CreditCard({ className, flipped, ...rest }, ref) {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          'relative w-[480px] h-[300px]',
+          'perspective-1000', // Tailwind custom utility
+          className
+        )}
+        {...rest}
+      >
+        <article
+          className={cn(
+            'credit-card', // CSS class for animation
+            'w-full h-full rounded-2xl shadow-2xl',
+            'bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400',
+            flipped && 'is-flipped'
+          )}
+        >
+          {/* Content with Tailwind classes */}
+        </article>
+      </div>
+    )
+  }
+)
+```
+
+**CSS file contains ONLY animations**:
 ```css
-.component-name {
-  /* Reference global tokens */
-  background: var(--rc-background);
-  color: var(--rc-text);
-  border: 1px solid var(--rc-border);
-  border-radius: var(--rc-radius-md);
-
-  /* Component-specific variables (for fine-tuning) */
-  --cn-spacing: var(--rc-spacing-md);
-  --cn-accent: var(--rc-primary);
-
-  padding: var(--cn-spacing);
+/* credit-card.css - Only keyframes and complex transforms */
+.credit-card {
+  transform-style: preserve-3d;
+  transition: transform 520ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Variants */
-.component-name--outline {
-  background: transparent;
-  border: 2px solid var(--rc-primary);
+.credit-card.is-flipped {
+  transform: rotateY(180deg);
 }
 
-/* States */
-.component-name:hover {
-  background: var(--rc-surface);
-}
-
-.component-name.is-active {
-  border-color: var(--rc-primary);
+@keyframes glare-sweep {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 ```
 
-### CSS Naming Conventions
+### cn() Utility Function
 
-- **Class names**: kebab-case, prefixed with component name (`.credit-card-...`)
-- **Modifiers**: Use `--` for variants (`.button--large`)
-- **States**: Use `is-` prefix (`.is-active`, `.is-disabled`)
-- **Utility classes**: Single purpose, generic (`.sr-only`)
+Every component should use the `cn()` utility for className merging:
+
+```typescript
+// lib/utils.ts
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+**Why**:
+- `clsx` - Conditional className logic
+- `twMerge` - Resolves Tailwind class conflicts (e.g., `px-4` overrides `px-2`)
+
+### Tailwind Best Practices
+
+#### 1. Responsive Design
+```tsx
+<div className="w-full md:w-1/2 lg:w-1/3">
+  {/* Mobile: full width, Tablet: half, Desktop: third */}
+</div>
+```
+
+#### 2. Dark Mode (Prepare for Future)
+```tsx
+<div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+  {/* Automatic dark mode support */}
+</div>
+```
+
+#### 3. Hover/Focus States
+```tsx
+<button className="bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500">
+  Button
+</button>
+```
+
+#### 4. Arbitrary Values (When Needed)
+```tsx
+<div className="w-[480px] h-[300px]">
+  {/* Custom exact values */}
+</div>
+```
+
+### When to Use CSS Files vs Tailwind
+
+| Use Case | Solution | Example |
+|----------|----------|---------|
+| **Layout, spacing, colors** | Tailwind classes | `flex items-center gap-4 bg-rc-primary` |
+| **Simple hover/focus** | Tailwind states | `hover:bg-gray-100 focus:ring-2` |
+| **Responsive design** | Tailwind breakpoints | `w-full md:w-1/2 lg:w-1/3` |
+| **Component variants** | Conditional Tailwind | `variant === 'outline' && 'border-2'` |
+| **Keyframe animations** | CSS file | `@keyframes slide-in` |
+| **3D transforms** | CSS file | `transform-style: preserve-3d` |
+| **Complex filters/effects** | CSS file | `backdrop-filter: blur(10px)` |
+| **requestAnimationFrame logic** | TypeScript + CSS vars | Update CSS variables from TS |
+
+### Migration Strategy for Existing Components
+
+When migrating from pure CSS to Tailwind:
+
+1. **Identify styles**:
+   - Layout/spacing → Tailwind classes
+   - Colors → Tailwind color tokens
+   - Simple states → Tailwind hover/focus
+   - Complex animations → Keep in CSS
+
+2. **Refactor incrementally**:
+   ```tsx
+   // Before
+   <div className="card card--large card--primary">
+
+   // After
+   <div className={cn(
+     'rounded-lg shadow-xl p-6', // Tailwind
+     'bg-rc-primary text-white', // Tokens
+     size === 'large' && 'p-8 text-lg'
+   )}>
+   ```
+
+3. **Test thoroughly**:
+   - Visual appearance matches
+   - Animations still work
+   - Responsive behavior correct
+
+### CSS Naming Conventions (When CSS Files Are Needed)
+
+- **Animation classes**: Descriptive names (`.fade-in`, `.slide-up`)
+- **State classes**: Use `is-` prefix (`.is-flipped`, `.is-active`)
+- **Avoid presentational classes**: Use Tailwind instead of `.text-center`, `.mt-4`
 
 ---
 
