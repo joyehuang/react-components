@@ -167,7 +167,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 **Migration Status** (as of Task #2):
 - All 7 existing components will be rewritten to use Tailwind CSS
 - Complex animations preserved in minimal CSS files
-- See EXECUTION_PLAN.md Task #2 for migration details
+- See [EXECUTION_PLAN.md](./EXECUTION_PLAN.md) Task #2 for migration details
 
 ### 5. Documentation Site Architecture
 
@@ -261,7 +261,7 @@ git push
 - Prevents loss of work if local machine has issues
 - Keeps remote repository up to date
 - Allows collaboration and review
-- Ensures CHANGELOG.md entries are backed up
+- Ensures documentation/dev/CHANGELOG.md entries are backed up
 
 **Recommended workflow**:
 ```bash
@@ -276,9 +276,9 @@ Co-Authored-By: Claude (pa/claude-sonnet-4-5-20250929) <noreply@anthropic.com>"
 # 4. IMMEDIATELY PUSH
 git push
 
-# 5. Update CHANGELOG.md
+# 5. Update documentation/dev/CHANGELOG.md
 # 6. Commit changelog update
-git add CHANGELOG.md
+git add documentation/dev/CHANGELOG.md
 git commit -m "docs: update changelog for <task-name>"
 git push
 ```
@@ -287,7 +287,7 @@ git push
 
 ## Known Issues & Planned Improvements
 
-See `CHANGELOG.md` for ongoing refactoring work.
+See [CHANGELOG.md](./CHANGELOG.md) for ongoing refactoring work.
 
 **Critical Issues**:
 1. **Inconsistent file structure** - Components split between `ui/` and root of `components/` (Task #1)
@@ -302,9 +302,9 @@ See `CHANGELOG.md` for ongoing refactoring work.
 
 ## Important Files to Read
 
-- `ANALYSIS.md` - Detailed analysis of current state and improvement roadmap
+- [ANALYSIS.md](../project/ANALYSIS.md) - Detailed analysis of current state and improvement roadmap
 - `packages/registry/manifest/components.json` - Component metadata source of truth
-- `packages/ui/src/components/ui/credit-card.tsx` - Reference implementation
+- `packages/ui/src/credit-card/credit-card.tsx` - Reference implementation
 - `apps/docs/app/docs/components/[slug]/page.tsx` - How docs are generated
 
 ## Package-Specific Notes

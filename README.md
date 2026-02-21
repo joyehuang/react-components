@@ -4,13 +4,19 @@ A copy-first React component library built as a PNPM monorepo. Components are co
 
 ## 📚 Documentation
 
-**Start here for development**:
-- **[QUICK_START.md](QUICK_START.md)** - Fast onboarding for new sessions (5 min read)
-- **[EXECUTION_PLAN.md](EXECUTION_PLAN.md)** - Detailed roadmap and current tasks (10 min read)
-- **[CLAUDE.md](CLAUDE.md)** - Comprehensive development guide (15 min read)
-- **[COMPONENT_SPEC.md](COMPONENT_SPEC.md)** - Component standards and templates (reference)
-- **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - High-level overview and vision (reference)
-- **[CHANGELOG.md](CHANGELOG.md)** - Progress tracking log (check before starting work)
+**Quick Start**:
+- **[QUICK_START.md](QUICK_START.md)** - 5-minute quick start guide
+
+**All Documentation**:
+- Browse the [documentation/](./documentation/) folder for organized docs
+  - **Developer docs** (for Claude Code): [documentation/dev/](./documentation/dev/)
+  - **Project management docs**: [documentation/project/](./documentation/project/)
+  - See [documentation/README.md](./documentation/README.md) for complete index
+
+**Key Developer Docs**:
+- [CLAUDE.md](documentation/dev/CLAUDE.md) - Comprehensive development guide
+- [EXECUTION_PLAN.md](documentation/dev/EXECUTION_PLAN.md) - Detailed task roadmap
+- [CHANGELOG.md](documentation/dev/CHANGELOG.md) - Progress tracking log
 
 ## 🏗️ Monorepo Structure
 
