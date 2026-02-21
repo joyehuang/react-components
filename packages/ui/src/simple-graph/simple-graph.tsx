@@ -1,5 +1,5 @@
 import { useMemo, useState, type CSSProperties } from 'react'
-import './SimpleGraph.css'
+import './simple-graph.css'
 
 type SimpleGraphPoint = {
   id: string

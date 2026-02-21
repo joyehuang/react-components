@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { TextScatter } from '../components/ui/text-scatter'
+import { TextScatter } from '../text-scatter'
 
 describe('TextScatter', () => {
   it('renders text content from props', () => {

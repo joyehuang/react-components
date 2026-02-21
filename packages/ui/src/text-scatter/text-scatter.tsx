@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useMemo, useRef, type CSSProperties, type HTMLAttributes } from 'react'
-import './TextScatter.css'
+import './text-scatter.css'
 
 type LetterPhysics = {
   x: number

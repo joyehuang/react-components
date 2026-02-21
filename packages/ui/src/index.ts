@@ -1,20 +1,20 @@
-// Export all components from unified ui/ directory
-export { CreditCard } from './components/ui/credit-card'
-export type { CreditCardColorOverrides, CreditCardProps } from './components/ui/credit-card'
+// Export all components from flattened structure
+export { CreditCard } from './credit-card'
+export type { CreditCardColorOverrides, CreditCardProps } from './credit-card'
 
-export { CylindricalTextReveal } from './components/ui/cylindrical-text-reveal'
-export type { CylindricalTextRevealProps } from './components/ui/cylindrical-text-reveal'
+export { CylindricalTextReveal } from './cylindrical-text-reveal'
+export type { CylindricalTextRevealProps } from './cylindrical-text-reveal'
 
-export { NeonNetwork } from './components/ui/neon-network'
-export type { NeonNetworkProps } from './components/ui/neon-network'
+export { NeonNetwork } from './neon-network'
+export type { NeonNetworkProps } from './neon-network'
 
-export { SimpleGraph } from './components/ui/simple-graph'
-export type { SimpleGraphProps } from './components/ui/simple-graph'
+export { SimpleGraph } from './simple-graph'
+export type { SimpleGraphProps } from './simple-graph'
 
-export { TextScatter } from './components/ui/text-scatter'
-export type { TextScatterProps } from './components/ui/text-scatter'
+export { TextScatter } from './text-scatter'
+export type { TextScatterProps } from './text-scatter'
 
-export { TextScatterBurst } from './components/ui/text-scatter-burst'
-export type { TextScatterBurstProps } from './components/ui/text-scatter-burst'
+export { TextScatterBurst } from './text-scatter-burst'
+export type { TextScatterBurstProps } from './text-scatter-burst'
 
-export { Scroll3DHeadline } from './components/ui/scroll-3d-headline'
+export { Scroll3DHeadline } from './scroll-3d-headline'

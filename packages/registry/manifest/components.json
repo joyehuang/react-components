@@ -9,9 +9,9 @@
     "previewTheme": "dark",
     "importStatement": "import { CreditCard } from '@rc-lab/ui'",
     "exampleCode": "<CreditCard cardNumber=\"1234 5678 9012 3456\" cardholder=\"JOHN DOE\" expires=\"12/25\" cvv=\"123\" width={480} />",
-    "files": ["components/ui/credit-card/credit-card.tsx", "components/ui/credit-card/credit-card.css"],
+    "files": ["credit-card/credit-card.tsx", "credit-card/credit-card.css"],
     "installNotes": [
-      "Copy both files into your project under src/components/ui.",
+      "Copy both files into your project under src/components.",
       "Use the named export CreditCard for direct reuse."
     ],
     "props": [
@@ -61,7 +61,7 @@
     "previewTheme": "dark",
     "importStatement": "import { SimpleGraph } from '@rc-lab/ui'",
     "exampleCode": "<SimpleGraph height={392} animationDurationMs={1550} points={[{ id: 'jan', label: 'Jan', value: 48.5 }, { id: 'feb', label: 'Feb', value: -42.8 }, { id: 'mar', label: 'Mar', value: 67.2 }]} />",
-    "files": ["components/ui/simple-graph/simple-graph.tsx", "components/ui/simple-graph/simple-graph.css"],
+    "files": ["simple-graph/simple-graph.tsx", "simple-graph/simple-graph.css"],
     "installNotes": [
       "Copy both files into your components folder.",
       "Pass your own points array to match project data."
@@ -103,7 +103,7 @@
     "previewTheme": "dark",
     "importStatement": "import { NeonNetwork } from '@rc-lab/ui'",
     "exampleCode": "<NeonNetwork startLabel=\"Start\" restartLabel=\"Restart\" fillDurationMs={2200} />",
-    "files": ["components/ui/neon-network/neon-network.tsx", "components/ui/neon-network/neon-network.css"],
+    "files": ["neon-network/neon-network.tsx", "neon-network/neon-network.css"],
     "installNotes": [
       "Copy component and CSS files together.",
       "Optionally disable controls with showControls={false}."
@@ -146,10 +146,10 @@
     "previewTheme": "dark",
     "importStatement": "import { CylindricalTextReveal } from '@rc-lab/ui'",
     "exampleCode": "<CylindricalTextReveal lines={['EXPLORE', 'THE', 'FUTURE', 'OF', 'DESIGN']} stickyTopOffset=\"72px\" sectionMinHeight=\"240vh\" />",
-    "files": ["components/ui/cylindrical-text-reveal/cylindrical-text-reveal.tsx", "components/ui/cylindrical-text-reveal/cylindrical-text-reveal.css"],
+    "files": ["cylindrical-text-reveal/cylindrical-text-reveal.tsx", "cylindrical-text-reveal/cylindrical-text-reveal.css"],
     "installNotes": [
       "Keep gsap in dependencies: pnpm add gsap.",
-      "Copy TSX and CSS files to src/components/ui."
+      "Copy TSX and CSS files to src/components."
     ],
     "props": [
       { "name": "lines", "type": "string[]", "description": "Uppercase text lines rendered on the cylinder." },
@@ -189,7 +189,7 @@
     "previewTheme": "dark",
     "importStatement": "import { TextScatter } from '@rc-lab/ui'",
     "exampleCode": "<TextScatter text=\"Bounce Back.\" triggerRadius={150} force={2.6} spring={0.065} damping={0.86} />",
-    "files": ["components/ui/text-scatter/text-scatter.tsx", "components/ui/text-scatter/text-scatter.css"],
+    "files": ["text-scatter/text-scatter.tsx", "text-scatter/text-scatter.css"],
     "installNotes": [
       "Copy TSX and CSS files.",
       "No external runtime dependencies required."
@@ -232,7 +232,7 @@
     "previewTheme": "dark",
     "importStatement": "import { TextScatterBurst } from '@rc-lab/ui'",
     "exampleCode": "<TextScatterBurst text=\"Bounce Back.\" triggerRadius={84} scatterHoldMs={1200} />",
-    "files": ["components/ui/text-scatter-burst/text-scatter-burst.tsx", "components/ui/text-scatter-burst/text-scatter-burst.css"],
+    "files": ["text-scatter-burst/text-scatter-burst.tsx", "text-scatter-burst/text-scatter-burst.css"],
     "installNotes": [
       "Copy TSX and CSS files.",
       "Tune triggerRadius and scatterHoldMs for your interaction style."

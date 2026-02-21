@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, type CSSProperties } from 'react'
-import './TextScatterBurst.css'
+import './text-scatter-burst.css'
 
 type LetterState = {
   x: number

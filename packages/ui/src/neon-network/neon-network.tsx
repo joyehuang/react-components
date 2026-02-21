@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
-import './NeonNetwork.css'
+import './neon-network.css'
 
 type NodeConfig = {
   id: string

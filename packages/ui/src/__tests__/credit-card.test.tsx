@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { CreditCard } from '../components/ui/credit-card'
+import { CreditCard } from '../credit-card'
 
 describe('CreditCard', () => {
   it('toggles aria-pressed in uncontrolled mode', () => {
