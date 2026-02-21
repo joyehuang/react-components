@@ -1,4 +1,4 @@
-import CylindricalTextReveal from './ui/cylindrical-text-reveal'
+import { CylindricalTextReveal } from '../cylindrical-text-reveal'
 
 function Scroll3DHeadline() {
   return (

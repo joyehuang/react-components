@@ -2,7 +2,17 @@
   "permissions": {
     "allow": [
       "Bash(tree:*)",
-      "Bash(dir \"C:\\\\development\\\\react-components\\\\packages\\\\ui\\\\src\\\\components\" /s /b)"
+      "Bash(dir \"C:\\\\development\\\\react-components\\\\packages\\\\ui\\\\src\\\\components\" /s /b)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\ndocs: add project documentation and standards\n\n- Add CLAUDE.md with comprehensive development guide\n- Add CHANGELOG.md to track refactoring progress\n- Add COMPONENT_SPEC.md with component standards\n\nThese documents establish the foundation for upcoming\nrefactoring work and automation tools \\(3 Skills\\).\n\nCo-Authored-By: Claude \\(pa/claude-sonnet-4-5-20250929\\) <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\ndocs: add quick start guide for future sessions\n\n- Create QUICK_START.md for rapid onboarding\n- Include essential commands and workflow\n- Add common pitfalls and best practices\n- Reference all key documentation files\n\nThis provides a fast entry point for Claude Code sessions\nwithout needing to read all documentation upfront.\n\nCo-Authored-By: Claude \\(pa/claude-sonnet-4-5-20250929\\) <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\ndocs: add project summary and high-level overview\n\n- Create PROJECT_SUMMARY.md with vision and roadmap\n- Document current state and success metrics\n- Explain architecture decisions and philosophy\n- Provide learning outcomes and key file references\n\nThis serves as the \"30,000 foot view\" for understanding\nthe project''s goals, current state, and future direction.\n\nCo-Authored-By: Claude \\(pa/claude-sonnet-4-5-20250929\\) <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(git reset:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm components list:*)",
+      "Bash(pnpm validate:manifest:*)"
     ]
   }
 }
