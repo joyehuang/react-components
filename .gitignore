@@ -16,6 +16,8 @@ dist-ssr
 coverage
 *.tsbuildinfo
 .source
+.tmp
+.agents
 
 # Editor directories and files
 .vscode/*

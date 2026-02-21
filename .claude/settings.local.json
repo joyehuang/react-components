@@ -12,7 +12,9 @@
       "Bash(git reset:*)",
       "Bash(pnpm typecheck:*)",
       "Bash(pnpm components list:*)",
-      "Bash(pnpm validate:manifest:*)"
+      "Bash(pnpm validate:manifest:*)",
+      "Bash(ls:*)",
+      "Bash(pnpm test:*)"
     ]
   }
 }
