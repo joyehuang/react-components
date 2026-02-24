@@ -1,58 +1,71 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --font-sans: 'IBM Plex Sans', 'Noto Sans SC', 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
-  --app-header-height: 64px;
-  --canvas: #f4f7fc;
-  --canvas-soft: #eef2fa;
-  --panel: #ffffff;
-  --panel-border: rgba(74, 95, 139, 0.2);
-  --ink-strong: #17253f;
-  --ink: #2b3b5a;
-  --ink-muted: #60708d;
-  --accent: #2049df;
-  --accent-strong: #1939b1;
-  --accent-soft: rgba(32, 73, 223, 0.12);
-  --focus-ring: rgba(29, 96, 224, 0.45);
-  font-family: var(--font-sans);
-  font-weight: 400;
-  color: var(--ink);
-  background: var(--canvas);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    --font-sans: "IBM Plex Sans", "Noto Sans SC", "Segoe UI", sans-serif;
+    --font-mono:
+        "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+    --app-header-height: 64px;
+    --canvas: #f4f7fc;
+    --canvas-soft: #eef2fa;
+    --panel: #ffffff;
+    --panel-border: rgba(74, 95, 139, 0.2);
+    --ink-strong: #17253f;
+    --ink: #2b3b5a;
+    --ink-muted: #60708d;
+    --accent: #2049df;
+    --accent-strong: #1939b1;
+    --accent-soft: rgba(32, 73, 223, 0.12);
+    --focus-ring: rgba(29, 96, 224, 0.45);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--canvas);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html,
 body,
 #root {
-  min-height: 100%;
+    min-height: 100%;
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
-  background:
-    radial-gradient(circle at 8% 10%, rgba(132, 163, 255, 0.24) 0%, rgba(132, 163, 255, 0) 36%),
-    radial-gradient(circle at 88% 18%, rgba(92, 127, 230, 0.16) 0%, rgba(92, 127, 230, 0) 35%),
-    linear-gradient(180deg, var(--canvas) 0%, var(--canvas-soft) 100%);
+    margin: 0;
+    min-width: 320px;
+    background:
+        radial-gradient(
+            circle at 8% 10%,
+            rgba(132, 163, 255, 0.24) 0%,
+            rgba(132, 163, 255, 0) 36%
+        ),
+        radial-gradient(
+            circle at 88% 18%,
+            rgba(92, 127, 230, 0.16) 0%,
+            rgba(92, 127, 230, 0) 35%
+        ),
+        linear-gradient(180deg, var(--canvas) 0%, var(--canvas-soft) 100%);
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 code,
 pre,
 kbd {
-  font-family: var(--font-mono);
+    font-family: var(--font-mono);
 }

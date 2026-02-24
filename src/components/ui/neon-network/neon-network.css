@@ -1,0 +1,269 @@
+.neon-network {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(197, 47, 255, 0.34) 0%,
+            rgba(103, 26, 127, 0.23) 20%,
+            rgba(13, 15, 30, 0.32) 40%,
+            rgba(4, 5, 11, 0.92) 72%
+        ),
+        #04050b;
+}
+
+.neon-network::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(138, 141, 181, 0.3) 20%,
+        rgba(138, 141, 181, 0.3) 80%,
+        transparent 100%
+    );
+}
+
+.connection {
+    fill: none;
+    stroke-linecap: round;
+}
+
+.connection--base {
+    stroke: var(--nn-line-base, rgba(99, 102, 140, 0.26));
+    stroke-width: 2;
+}
+
+.connection-animated .connection--glow {
+    stroke: var(--nn-line-glow, rgba(181, 83, 255, 0.42));
+    stroke-width: 4;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    opacity: 0;
+    transition: opacity 180ms ease;
+    filter: blur(1.8px);
+    stroke-linecap: butt;
+}
+
+.connection-animated .connection--core {
+    stroke: var(--nn-line-core, #c63dff);
+    stroke-width: 2;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    opacity: 0;
+    transition: opacity 180ms ease;
+    filter: drop-shadow(0 0 7px rgba(215, 57, 255, 0.74));
+    stroke-linecap: butt;
+}
+
+.neon-network.is-running .connection-animated .connection--glow {
+    animation: line-fill var(--nn-glow-duration, 2400ms)
+        cubic-bezier(0.2, 0.75, 0.28, 1) 1 forwards;
+    opacity: 1;
+}
+
+.neon-network.is-running .connection-animated .connection--core {
+    animation: line-fill var(--nn-core-duration, 2200ms)
+        cubic-bezier(0.2, 0.75, 0.28, 1) 1 forwards;
+    opacity: 1;
+}
+
+.neon-network__node {
+    width: clamp(34px, 5vw, 52px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 13px;
+    border: 1px solid rgba(119, 123, 167, 0.22);
+    background: rgba(8, 9, 19, 0.72);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.025),
+        0 0 0 1px rgba(8, 10, 18, 0.8);
+    display: grid;
+    place-items: center;
+    animation: node-float 4.8s ease-in-out infinite;
+}
+
+.neon-network__node-dot {
+    width: clamp(8px, 0.95vw, 10px);
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: var(--nn-node-dot, rgba(182, 72, 255, 0.45));
+    box-shadow: 0 0 0 6px rgba(176, 71, 249, 0.06);
+    animation: node-dot-pulse 2.4s ease-in-out infinite;
+}
+
+.neon-network__node.is-highlighted .neon-network__node-dot {
+    background: var(--nn-node-dot-highlight, #d83cff);
+    box-shadow:
+        0 0 10px rgba(216, 60, 255, 0.95),
+        0 0 0 7px rgba(216, 60, 255, 0.12);
+}
+
+.neon-network__core {
+    width: clamp(86px, 11vw, 116px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: clamp(24px, 3vw, 30px);
+    border: 1px solid var(--nn-core-border, rgba(216, 63, 255, 0.72));
+    background: radial-gradient(
+        circle at 35% 30%,
+        rgba(103, 29, 123, 0.4),
+        rgba(9, 10, 18, 0.94) 66%
+    );
+    box-shadow:
+        inset 0 0 25px rgba(176, 43, 238, 0.16),
+        0 0 50px rgba(179, 45, 244, 0.36),
+        0 0 95px rgba(161, 33, 224, 0.2);
+    animation: core-breathe 3.5s ease-in-out infinite;
+    transition: box-shadow 220ms ease;
+}
+
+.neon-network__core-glow {
+    position: absolute;
+    inset: -52%;
+    z-index: -1;
+    border-radius: 999px;
+    background: radial-gradient(
+        circle,
+        rgba(202, 50, 255, 0.38) 0%,
+        rgba(202, 50, 255, 0.1) 36%,
+        transparent 72%
+    );
+    filter: blur(8px);
+    animation: aura 3.5s ease-in-out infinite;
+    transition: opacity 220ms ease;
+}
+
+.neon-network.is-running .neon-network__core,
+.neon-network.is-complete .neon-network__core {
+    box-shadow:
+        inset 0 0 25px rgba(176, 43, 238, 0.24),
+        0 0 58px rgba(188, 69, 248, 0.5),
+        0 0 120px rgba(186, 74, 244, 0.34);
+}
+
+.neon-network.is-running .neon-network__core-glow,
+.neon-network.is-complete .neon-network__core-glow {
+    opacity: 1;
+}
+
+.neon-network.is-complete .connection-animated .connection--glow,
+.neon-network.is-complete .connection-animated .connection--core {
+    stroke-dashoffset: 0;
+    opacity: 1;
+}
+
+.neon-network__button {
+    border: 1px solid var(--nn-button-border, rgba(203, 129, 255, 0.44));
+    background: var(--nn-button-bg, rgba(34, 18, 49, 0.88));
+    color: var(--nn-button-text, #f3d8ff);
+    border-radius: 10px;
+    min-width: 118px;
+    padding: 10px 16px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition:
+        transform 120ms ease,
+        box-shadow 120ms ease,
+        border-color 120ms ease,
+        opacity 120ms ease;
+}
+
+.neon-network__button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: rgba(221, 164, 255, 0.86);
+    box-shadow: 0 6px 18px rgba(157, 57, 241, 0.3);
+}
+
+.neon-network__button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.neon-network__logo polyline {
+    fill: none;
+    stroke: var(--nn-logo, #da44ff);
+    stroke-width: 3.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(218, 68, 255, 0.8));
+}
+
+@keyframes line-fill {
+    from {
+        stroke-dashoffset: 100;
+        opacity: 0.2;
+    }
+
+    82% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes core-breathe {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.04);
+    }
+}
+
+@keyframes node-dot-pulse {
+    0%,
+    100% {
+        opacity: 0.55;
+        transform: scale(0.94);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.07);
+    }
+}
+
+@keyframes node-float {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.03);
+    }
+}
+
+@keyframes aura {
+    0%,
+    100% {
+        opacity: 0.68;
+        transform: scale(0.94);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .connection--glow,
+    .connection--core,
+    .neon-network__node,
+    .neon-network__node-dot,
+    .neon-network__core,
+    .neon-network__core-glow {
+        animation: none;
+    }
+}

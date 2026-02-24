@@ -1,0 +1,23 @@
+.text-scatter__char {
+    color: #f5f5f5;
+    font-size: clamp(2.75rem, 8.5vw, 7.5rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    will-change: transform;
+    transition: color 180ms ease;
+}
+
+.text-scatter__stage:hover .text-scatter__char {
+    color: #fff;
+}
+
+.text-scatter__char.is-space {
+    width: 0.38em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .text-scatter__char {
+        transform: none !important;
+    }
+}

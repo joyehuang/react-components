@@ -1,0 +1,24 @@
+.text-scatter-burst__char {
+    font-size: clamp(2.9rem, 9vw, 7.9rem);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    color: var(--tsb-char-color, #f7f7f7);
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    will-change: transform, filter;
+}
+
+.text-scatter-burst__stage:hover .text-scatter-burst__char {
+    color: var(--tsb-char-hover-color, #fff);
+}
+
+.text-scatter-burst__char.is-space {
+    width: 0.42em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .text-scatter-burst__char {
+        transform: none !important;
+        filter: none !important;
+    }
+}
